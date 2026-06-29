@@ -8,1535 +8,1063 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --black:   #0A0A0A;
-    --card:    #141414;
-    --border:  #2A2A2A;
-    --mid:     #3A3A3A;
-    --muted:   #888;
-    --parch:   #F5F0E8;
-    --parch2:  #C8C2B5;
-    --gold:    #C9A84C;
-    --gold2:   #E8C96A;
-    --sidebar: 260px;
-    --ff-display: 'Cormorant Garamond', Georgia, serif;
-    --ff-body:    'Inter', system-ui, sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--parch);
-    font-family: var(--ff-body);
-    font-size: 15px;
-    line-height: 1.65;
-    display: flex;
-    min-height: 100vh;
-  }
-
-  /* ── SIDEBAR ─────────────────────────────────────── */
-  #sidebar {
-    width: var(--sidebar);
-    min-width: var(--sidebar);
-    position: fixed;
-    top: 0; left: 0; bottom: 0;
-    background: var(--card);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    z-index: 100;
-  }
-
-  .sidebar-header {
-    padding: 28px 24px 20px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .sidebar-logo {
-    font-family: var(--ff-display);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .sidebar-title {
-    font-family: var(--ff-display);
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--parch);
-    line-height: 1.2;
-  }
-
-  .sidebar-version {
-    font-size: 10px;
-    color: var(--muted);
-    margin-top: 6px;
-    letter-spacing: 0.08em;
-  }
-
-  nav { padding: 16px 0; flex: 1; }
-
-  .nav-section-label {
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 12px 24px 4px;
-  }
-
-  nav a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 24px;
-    color: var(--parch2);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 400;
-    transition: color 0.15s, background 0.15s;
-    position: relative;
-    border-left: 2px solid transparent;
-  }
-
-  nav a:hover {
-    color: var(--parch);
-    background: rgba(201,168,76,0.06);
-  }
-
-  nav a.active {
-    color: var(--gold);
-    border-left-color: var(--gold);
-    background: rgba(201,168,76,0.08);
-    font-weight: 500;
-  }
-
-  .nav-icon {
-    font-size: 14px;
-    width: 18px;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .sidebar-footer {
-    padding: 16px 24px;
-    border-top: 1px solid var(--border);
-    font-size: 11px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  /* ── MAIN ─────────────────────────────────────────── */
-  #main {
-    margin-left: var(--sidebar);
-    flex: 1;
-    min-width: 0;
-  }
-
-  /* ── SECTIONS ─────────────────────────────────────── */
-  .section {
-    min-height: 100vh;
-    padding: 72px 64px 80px;
-    border-bottom: 1px solid var(--border);
-    max-width: 900px;
-  }
-
-  .section:last-child { border-bottom: none; }
-
-  .section-eyebrow {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 12px;
-    display: block;
-  }
-
-  .section-title {
-    font-family: var(--ff-display);
-    font-size: 48px;
-    font-weight: 300;
-    color: var(--parch);
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-
-  .section-subtitle {
-    font-family: var(--ff-display);
-    font-size: 20px;
-    font-weight: 300;
-    color: var(--parch2);
-    margin-bottom: 40px;
-    line-height: 1.4;
-  }
-
-  .divider {
-    width: 40px;
-    height: 1px;
-    background: var(--gold);
-    margin-bottom: 40px;
-  }
-
-  /* ── CONTENT ELEMENTS ─────────────────────────────── */
-  h2 {
-    font-family: var(--ff-display);
-    font-size: 26px;
-    font-weight: 400;
-    color: var(--parch);
-    margin: 44px 0 14px;
-    letter-spacing: 0.01em;
-  }
-
-  h3 {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin: 32px 0 10px;
-  }
-
-  p { color: var(--parch2); margin-bottom: 16px; max-width: 680px; }
-
-  ul, ol {
-    color: var(--parch2);
-    padding-left: 20px;
-    margin-bottom: 16px;
-    max-width: 680px;
-  }
-
-  li { margin-bottom: 6px; }
-
-  strong { color: var(--parch); font-weight: 600; }
-
-  /* ── CARDS ─────────────────────────────────────────── */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-    margin: 24px 0;
-  }
-
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 20px;
-    transition: border-color 0.15s;
-  }
-
-  .card:hover { border-color: var(--gold); }
-
-  .card-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-
-  .card-value {
-    font-family: var(--ff-display);
-    font-size: 28px;
-    font-weight: 400;
-    color: var(--parch);
-    line-height: 1.1;
-  }
-
-  .card-desc {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  /* ── STAT ROW ──────────────────────────────────────── */
-  .stat-row {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-    margin: 24px 0;
-    padding: 24px 0;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .stat { flex: 1; min-width: 120px; }
-
-  .stat-num {
-    font-family: var(--ff-display);
-    font-size: 36px;
-    font-weight: 300;
-    color: var(--gold);
-    display: block;
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 4px;
-    letter-spacing: 0.06em;
-  }
-
-  /* ── TIMELINE ──────────────────────────────────────── */
-  .timeline { margin: 24px 0; }
-
-  .timeline-item {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 0;
-    position: relative;
-  }
-
-  .timeline-item:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 32px;
-    bottom: 0;
-    width: 1px;
-    background: var(--border);
-  }
-
-  .timeline-marker {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--card);
-    border: 1px solid var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--gold);
-    position: relative;
-    z-index: 1;
-  }
-
-  .timeline-content {
-    padding-bottom: 28px;
-    flex: 1;
-  }
-
-  .timeline-heading {
-    font-family: var(--ff-display);
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--parch);
-    margin-bottom: 4px;
-  }
-
-  .timeline-sub { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
-
-  /* ── TABLE ─────────────────────────────────────────── */
-  .table-wrap { overflow-x: auto; margin: 20px 0; }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
-  thead th {
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 10px 14px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-  }
-
-  tbody td {
-    padding: 11px 14px;
-    border-bottom: 1px solid var(--border);
-    color: var(--parch2);
-    vertical-align: top;
-  }
-
-  tbody tr:last-child td { border-bottom: none; }
-  tbody tr:hover td { background: rgba(255,255,255,0.02); }
-
-  td strong { color: var(--parch); }
-
-  /* ── CALLOUT ───────────────────────────────────────── */
-  .callout {
-    border-left: 2px solid var(--gold);
-    background: rgba(201,168,76,0.06);
-    padding: 16px 20px;
-    border-radius: 0 4px 4px 0;
-    margin: 20px 0;
-    max-width: 680px;
-  }
-
-  .callout-label {
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 6px;
-  }
-
-  .callout p { margin: 0; font-size: 13px; }
-
-  /* ── LINK BLOCK ────────────────────────────────────── */
-  .link-block {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 16px 20px;
-    text-decoration: none;
-    margin-bottom: 10px;
-    max-width: 680px;
-    transition: border-color 0.15s, background 0.15s;
-  }
-
-  .link-block:hover {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.04);
-  }
-
-  .link-icon {
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
-  .link-text { flex: 1; }
-
-  .link-title {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--parch);
-    display: block;
-  }
-
-  .link-desc {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  .link-arrow {
-    color: var(--muted);
-    font-size: 14px;
-  }
-
-  /* ── BADGE ─────────────────────────────────────────── */
-  .badge {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 2px;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-
-  .badge-green  { background: rgba(72,187,120,0.12); color: #48BB78; }
-  .badge-gold   { background: rgba(201,168,76,0.15); color: var(--gold2); }
-  .badge-muted  { background: rgba(255,255,255,0.06); color: var(--muted); }
-  .badge-red    { background: rgba(245,101,101,0.12); color: #FC8181; }
-
-  /* ── PHASE BLOCK ────────────────────────────────────── */
-  .phase-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin: 24px 0;
-  }
-
-  .phase-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 24px;
-  }
-
-  .phase-num {
-    font-family: var(--ff-display);
-    font-size: 48px;
-    font-weight: 300;
-    color: var(--border);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .phase-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--parch);
-    margin-bottom: 4px;
-    letter-spacing: 0.05em;
-  }
-
-  .phase-duration {
-    font-size: 11px;
-    color: var(--gold);
-    margin-bottom: 12px;
-  }
-
-  .phase-card ul {
-    font-size: 12px;
-    padding-left: 16px;
-    margin: 0;
-  }
-
-  .phase-card li { margin-bottom: 4px; color: var(--parch2); }
-
-  /* ── PIPELINE STAGE ─────────────────────────────────── */
-  .pipeline {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin: 20px 0;
-    max-width: 680px;
-  }
-
-  .pipeline-stage {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-  }
-
-  .pipeline-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
-
-  .pipeline-name { font-size: 13px; font-weight: 500; color: var(--parch); flex: 1; }
-  .pipeline-desc { font-size: 12px; color: var(--muted); }
-
-  /* ── HERO (overview section) ────────────────────────── */
-  #overview {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background:
-      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%),
-      var(--black);
-  }
-
-  .hero-kicker {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-
-  .hero-title {
-    font-family: var(--ff-display);
-    font-size: clamp(52px, 6vw, 80px);
-    font-weight: 300;
-    color: var(--parch);
-    line-height: 1.0;
-    margin-bottom: 6px;
-  }
-
-  .hero-title em {
-    font-style: italic;
-    color: var(--parch2);
-  }
-
-  .hero-sub {
-    font-family: var(--ff-display);
-    font-size: 22px;
-    font-weight: 300;
-    color: var(--parch2);
-    margin-bottom: 48px;
-    max-width: 560px;
-    line-height: 1.4;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 0;
-    flex-wrap: wrap;
-    max-width: 680px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 40px;
-  }
-
-  .hero-stat {
-    flex: 1;
-    min-width: 100px;
-    padding: 20px 24px;
-    border-right: 1px solid var(--border);
-  }
-
-  .hero-stat:last-child { border-right: none; }
-
-  .hero-stat-num {
-    font-family: var(--ff-display);
-    font-size: 32px;
-    font-weight: 300;
-    color: var(--gold);
-    display: block;
-  }
-
-  .hero-stat-label {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  /* ── SCROLL INDICATOR ───────────────────────────────── */
-  .scroll-hint {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .scroll-hint::before {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 1px;
-    background: var(--muted);
-  }
-
-  /* ── CHECKLIST ──────────────────────────────────────── */
-  .checklist { list-style: none; padding: 0; margin: 16px 0; max-width: 680px; }
-
-  .checklist li {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-    color: var(--parch2);
-  }
-
-  .checklist li:last-child { border-bottom: none; }
-
-  .check-box {
-    width: 16px; height: 16px;
-    border: 1px solid var(--mid);
-    border-radius: 2px;
-    flex-shrink: 0;
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    color: var(--gold);
-  }
-
-  /* ── RESPONSIVE ─────────────────────────────────────── */
-  @media (max-width: 768px) {
-    #sidebar { display: none; }
-    #main { margin-left: 0; }
-    .section { padding: 48px 24px 56px; }
-    .phase-grid { grid-template-columns: 1fr; }
-  }
+    --black:#0A0A0A; --card:#141414; --border:#2A2A2A; --mid:#3A3A3A;
+    --muted:#888; --parch:#F5F0E8; --parch2:#C8C2B5; --gold:#C9A84C;
+    --gold2:#E8C96A; --sidebar:260px;
+    --ff-display:'Cormorant Garamond',Georgia,serif;
+    --ff-body:'Inter',system-ui,sans-serif;
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--black);color:var(--parch);font-family:var(--ff-body);font-size:15px;line-height:1.65;display:flex;min-height:100vh;}
+
+  /* SIDEBAR */
+  #sidebar{width:var(--sidebar);min-width:var(--sidebar);position:fixed;top:0;left:0;bottom:0;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;z-index:100;}
+  .sidebar-header{padding:28px 24px 20px;border-bottom:1px solid var(--border);}
+  .sidebar-logo{font-family:var(--ff-display);font-size:13px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px;}
+  .sidebar-title{font-family:var(--ff-display);font-size:20px;font-weight:400;color:var(--parch);line-height:1.2;}
+  .sidebar-version{font-size:10px;color:var(--muted);margin-top:6px;letter-spacing:.08em;}
+  nav{padding:16px 0;flex:1;}
+  .nav-section-label{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:12px 24px 4px;}
+  nav a{display:flex;align-items:center;gap:10px;padding:8px 24px;color:var(--parch2);text-decoration:none;font-size:13px;font-weight:400;transition:color .15s,background .15s;border-left:2px solid transparent;}
+  nav a:hover{color:var(--parch);background:rgba(201,168,76,.06);}
+  nav a.active{color:var(--gold);border-left-color:var(--gold);background:rgba(201,168,76,.08);font-weight:500;}
+  .nav-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0;}
+  .sidebar-footer{padding:16px 24px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.5;}
+
+  /* MAIN */
+  #main{margin-left:var(--sidebar);flex:1;min-width:0;}
+  .section{min-height:100vh;padding:72px 64px 80px;border-bottom:1px solid var(--border);max-width:900px;}
+  .section:last-child{border-bottom:none;}
+  .section-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block;}
+  .section-title{font-family:var(--ff-display);font-size:48px;font-weight:300;color:var(--parch);line-height:1.1;margin-bottom:8px;}
+  .section-subtitle{font-family:var(--ff-display);font-size:20px;font-weight:300;color:var(--parch2);margin-bottom:40px;line-height:1.4;}
+  .divider{width:40px;height:1px;background:var(--gold);margin-bottom:40px;}
+
+  h2{font-family:var(--ff-display);font-size:26px;font-weight:400;color:var(--parch);margin:44px 0 14px;letter-spacing:.01em;}
+  h3{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:32px 0 10px;}
+  p{color:var(--parch2);margin-bottom:16px;max-width:680px;}
+  ul,ol{color:var(--parch2);padding-left:20px;margin-bottom:16px;max-width:680px;}
+  li{margin-bottom:6px;}
+  strong{color:var(--parch);font-weight:600;}
+
+  /* CARDS */
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin:24px 0;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:20px;transition:border-color .15s;}
+  .card:hover{border-color:var(--gold);}
+  .card-label{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .card-value{font-family:var(--ff-display);font-size:28px;font-weight:400;color:var(--parch);line-height:1.1;}
+  .card-desc{font-size:12px;color:var(--muted);margin-top:4px;}
+
+  /* STAT ROW */
+  .stat-row{display:flex;gap:32px;flex-wrap:wrap;margin:24px 0;padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .stat{flex:1;min-width:120px;}
+  .stat-num{font-family:var(--ff-display);font-size:36px;font-weight:300;color:var(--gold);display:block;line-height:1;}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.06em;}
+
+  /* TIMELINE */
+  .timeline{margin:24px 0;}
+  .timeline-item{display:flex;gap:20px;margin-bottom:0;position:relative;}
+  .timeline-item:not(:last-child)::after{content:'';position:absolute;left:15px;top:32px;bottom:0;width:1px;background:var(--border);}
+  .timeline-marker{width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:600;color:var(--gold);position:relative;z-index:1;}
+  .timeline-content{padding-bottom:28px;flex:1;}
+  .timeline-heading{font-family:var(--ff-display);font-size:18px;font-weight:500;color:var(--parch);margin-bottom:4px;}
+  .timeline-sub{font-size:12px;color:var(--muted);margin-bottom:8px;}
+
+  /* TABLE */
+  .table-wrap{overflow-x:auto;margin:20px 0;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+  tbody td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--parch2);vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover td{background:rgba(255,255,255,.02);}
+  td strong{color:var(--parch);}
+
+  /* CALLOUT */
+  .callout{border-left:2px solid var(--gold);background:rgba(201,168,76,.06);padding:16px 20px;border-radius:0 4px 4px 0;margin:20px 0;max-width:680px;}
+  .callout-label{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+  .callout p{margin:0;font-size:13px;}
+
+  .callout-red{border-left:2px solid #FC8181;background:rgba(245,101,101,.06);}
+  .callout-red .callout-label{color:#FC8181;}
+
+  /* LINK BLOCK */
+  .link-block{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:16px 20px;text-decoration:none;margin-bottom:10px;max-width:680px;transition:border-color .15s,background .15s;}
+  .link-block:hover{border-color:var(--gold);background:rgba(201,168,76,.04);}
+  .link-icon{font-size:20px;flex-shrink:0;}
+  .link-text{flex:1;}
+  .link-title{font-size:14px;font-weight:500;color:var(--parch);display:block;}
+  .link-desc{font-size:12px;color:var(--muted);margin-top:2px;}
+  .link-arrow{color:var(--muted);font-size:14px;}
+
+  /* BADGE */
+  .badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-left:8px;vertical-align:middle;}
+  .badge-green{background:rgba(72,187,120,.12);color:#48BB78;}
+  .badge-gold{background:rgba(201,168,76,.15);color:var(--gold2);}
+  .badge-muted{background:rgba(255,255,255,.06);color:var(--muted);}
+  .badge-red{background:rgba(245,101,101,.12);color:#FC8181;}
+  .badge-blue{background:rgba(99,179,237,.12);color:#63B3ED;}
+
+  /* PHASE GRID */
+  .phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0;}
+  .phase-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px;}
+  .phase-num{font-family:var(--ff-display);font-size:48px;font-weight:300;color:var(--border);line-height:1;margin-bottom:8px;}
+  .phase-title{font-size:13px;font-weight:600;color:var(--parch);margin-bottom:4px;letter-spacing:.05em;}
+  .phase-duration{font-size:11px;color:var(--gold);margin-bottom:12px;}
+  .phase-card ul{font-size:12px;padding-left:16px;margin:0;}
+  .phase-card li{margin-bottom:4px;color:var(--parch2);}
+
+  /* PIPELINE */
+  .pipeline{display:flex;flex-direction:column;gap:4px;margin:20px 0;max-width:680px;}
+  .pipeline-stage{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:3px;}
+  .pipeline-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+  .pipeline-name{font-size:13px;font-weight:500;color:var(--parch);flex:1;}
+  .pipeline-desc{font-size:12px;color:var(--muted);}
+
+  /* HERO */
+  #overview{min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(201,168,76,.06) 0%,transparent 70%),var(--black);}
+  .hero-kicker{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+  .hero-title{font-family:var(--ff-display);font-size:clamp(52px,6vw,80px);font-weight:300;color:var(--parch);line-height:1.0;margin-bottom:6px;}
+  .hero-title em{font-style:italic;color:var(--parch2);}
+  .hero-sub{font-family:var(--ff-display);font-size:22px;font-weight:300;color:var(--parch2);margin-bottom:48px;max-width:560px;line-height:1.4;}
+  .hero-stats{display:flex;gap:0;flex-wrap:wrap;max-width:680px;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:40px;}
+  .hero-stat{flex:1;min-width:100px;padding:20px 24px;border-right:1px solid var(--border);}
+  .hero-stat:last-child{border-right:none;}
+  .hero-stat-num{font-family:var(--ff-display);font-size:32px;font-weight:300;color:var(--gold);display:block;}
+  .hero-stat-label{font-size:11px;color:var(--muted);margin-top:2px;}
+  .scroll-hint{font-size:11px;color:var(--muted);letter-spacing:.1em;display:flex;align-items:center;gap:8px;}
+  .scroll-hint::before{content:'';display:block;width:24px;height:1px;background:var(--muted);}
+
+  /* CHECKLIST */
+  .checklist{list-style:none;padding:0;margin:16px 0;max-width:680px;}
+  .checklist li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--parch2);}
+  .checklist li:last-child{border-bottom:none;}
+  .check-box{width:16px;height:16px;border:1px solid var(--mid);border-radius:2px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--gold);}
+
+  /* MODEL DAY */
+  .day-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0;}
+  .day-card{background:var(--card);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+  .day-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+  .day-tag{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:3px 8px;border-radius:2px;}
+  .day-tag-event{background:rgba(201,168,76,.15);color:var(--gold2);}
+  .day-tag-nonevent{background:rgba(99,179,237,.12);color:#63B3ED;}
+  .day-title{font-size:14px;font-weight:500;color:var(--parch);}
+  .day-body{padding:0;}
+  .day-row{display:flex;gap:0;padding:10px 20px;border-bottom:1px solid var(--border);align-items:flex-start;}
+  .day-row:last-child{border-bottom:none;}
+  .day-time{font-size:11px;color:var(--gold);font-weight:500;min-width:70px;padding-top:1px;font-variant-numeric:tabular-nums;}
+  .day-activity{font-size:12px;color:var(--parch2);flex:1;}
+  .day-owner{font-size:10px;color:var(--muted);margin-top:2px;}
+
+  /* SCRIPT BLOCK */
+  .script-block{background:var(--card);border:1px solid var(--border);border-radius:4px;margin:20px 0;max-width:680px;overflow:hidden;}
+  .script-header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+  .script-label{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
+  .script-title{font-size:13px;font-weight:500;color:var(--parch);}
+  .script-body{padding:20px;}
+  .script-line{margin-bottom:14px;}
+  .script-role{font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+  .script-text{font-size:13px;color:var(--parch2);font-style:italic;line-height:1.6;}
+  .script-note{font-size:11px;color:var(--muted);margin-top:4px;font-style:normal;}
+  .script-divider{border:none;border-top:1px solid var(--border);margin:16px 0;}
+
+  /* NEEDS DETAIL FLAG */
+  .needs-detail{border:1px dashed var(--mid);border-radius:4px;padding:14px 18px;margin:16px 0;max-width:680px;display:flex;gap:12px;align-items:flex-start;}
+  .needs-detail-icon{color:var(--gold);font-size:14px;flex-shrink:0;margin-top:1px;}
+  .needs-detail-text{font-size:12px;color:var(--muted);}
+  .needs-detail-text strong{color:var(--parch2);}
+
+  /* RESPONSIVE */
+  @media(max-width:768px){#sidebar{display:none;}#main{margin-left:0;}.section{padding:48px 24px 56px;}.phase-grid{grid-template-columns:1fr;}.day-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════ SIDEBAR -->
+<!-- SIDEBAR -->
 <nav id="sidebar">
   <div class="sidebar-header">
     <span class="sidebar-logo">Masterworks</span>
     <div class="sidebar-title">Gallery<br>Operating System</div>
-    <div class="sidebar-version">v1.0 — June 2026</div>
+    <div class="sidebar-version">v2.0 — June 2026</div>
   </div>
-
   <nav>
-    <div class="nav-section-label">Foundation</div>
-    <a href="#overview" class="active"><span class="nav-icon">◆</span> Overview</a>
-    <a href="#team"><span class="nav-icon">○</span> Team & Roles</a>
-    <a href="#hiring"><span class="nav-icon">○</span> Hiring</a>
+    <div class="nav-section-label">Daily</div>
+    <a href="#overview"><span class="nav-icon">◆</span> Overview & Daily Plans</a>
+    <a href="#dashboards"><span class="nav-icon">○</span> Dashboards & Tools</a>
+    <a href="#kpis"><span class="nav-icon">○</span> KPIs & Rhythm</a>
 
     <div class="nav-section-label">Operations</div>
-    <a href="#onboarding"><span class="nav-icon">○</span> Onboarding & Ramp</a>
+    <a href="#crm"><span class="nav-icon">○</span> CRM & Pipeline</a>
+    <a href="#callstrategy"><span class="nav-icon">○</span> Call Strategy & Scripting</a>
     <a href="#events"><span class="nav-icon">○</span> Event Execution</a>
     <a href="#playbook"><span class="nav-icon">○</span> Advisor Playbook</a>
 
-    <div class="nav-section-label">Performance</div>
-    <a href="#crm"><span class="nav-icon">○</span> CRM & Pipeline</a>
-    <a href="#kpis"><span class="nav-icon">○</span> KPIs & Rhythm</a>
-    <a href="#comp"><span class="nav-icon">○</span> Compensation</a>
+    <div class="nav-section-label">Team</div>
+    <a href="#team"><span class="nav-icon">○</span> Team & Roles</a>
+    <a href="#srleadership"><span class="nav-icon">○</span> Sr. Leadership</a>
+    <a href="#hiring"><span class="nav-icon">○</span> Hiring</a>
+    <a href="#onboarding"><span class="nav-icon">○</span> Onboarding & Ramp</a>
 
     <div class="nav-section-label">Growth</div>
-    <a href="#realestate"><span class="nav-icon">○</span> Real Estate & Expansion</a>
     <a href="#partners"><span class="nav-icon">○</span> Partner Events</a>
+    <a href="#realestate"><span class="nav-icon">○</span> Real Estate & Expansion</a>
     <a href="#continuity"><span class="nav-icon">○</span> 90-Day Continuity</a>
   </nav>
-
   <div class="sidebar-footer">
     Questions → Scott<br>
-    CRM → HubSpot Pipeline #880355706
+    Pipeline ID: 880355706
   </div>
 </nav>
 
-<!-- ═══════════════════════════════════════════════════ MAIN -->
+<!-- MAIN -->
 <main id="main">
 
-  <!-- ── 1. OVERVIEW ────────────────────────────────── -->
-  <section class="section" id="overview" style="padding-top:80px;">
-    <div class="hero-kicker">Gallery Operating System</div>
-    <div class="hero-title">The Gallery<br><em>Channel Playbook</em></div>
-    <div class="hero-sub">Everything the Masterworks gallery team needs to hire, train, operate, and close — in one place.</div>
+<!-- ══ 1. OVERVIEW & DAILY PLANS ══════════════════════ -->
+<section class="section" id="overview" style="padding-top:80px;">
+  <div class="hero-kicker">Gallery Operating System</div>
+  <div class="hero-title">The Gallery<br><em>Channel Playbook</em></div>
+  <div class="hero-sub">Everything the Masterworks gallery team needs to hire, train, operate, and close — in one place.</div>
 
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <span class="hero-stat-num">3</span>
-        <div class="hero-stat-label">Gallery Locations (2026)</div>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">~50</span>
-        <div class="hero-stat-label">RSVPs per Event Night</div>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">$11,764</span>
-        <div class="hero-stat-label">Revenue per Meeting</div>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">25–30</span>
-        <div class="hero-stat-label">Target Meetings / FA / Week</div>
-      </div>
-    </div>
+  <p class="scroll-hint">Use the sidebar to navigate sections</p>
 
-    <p class="scroll-hint">Use the sidebar to navigate sections</p>
+  <h2>What This Is</h2>
+  <p>The Masterworks gallery channel is a physical sales model built around invite-only evening events held three nights per week, 4–7pm. HNW prospects with investable portfolios of $3M or more attend these events, view works from the Masterworks portfolio, and meet with financial advisors trained to convert interest into investment.</p>
+  <p>This operating system is the authoritative reference for everyone in the gallery channel — from the first day of onboarding through daily execution and long-term expansion.</p>
+  <p>Prospects are sourced through outbound cold email to HNW individuals and through co-branded events with businesses and centers of influence — wealth managers, family offices, PE/VC firms, luxury service providers, and professional networks whose clients match the target profile. The <a href="#partners" style="color:var(--gold);">Partner Events program</a> details eligible categories.</p>
 
-    <h2>What This Is</h2>
-    <p>The Masterworks gallery channel is a physical sales model built around invite-only evening events. Wealthy prospects attend gallery openings at curated locations, view fine art held by Masterworks, and meet with financial advisors trained to convert interest into investment.</p>
-    <p>This operating system is the authoritative reference for anyone working in or with the gallery channel — from the first day of hiring through daily event execution and long-term expansion.</p>
+  <h2>Active Locations</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Location</th><th>Address</th><th>Time</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>New York City</strong></td><td>30 East 74th Street</td><td>4–7pm, 3 nights/week</td><td><span class="badge badge-green">Active</span></td></tr>
+        <tr><td><strong>Beverly Hills</strong></td><td>TBD — lease in progress</td><td>TBD</td><td><span class="badge badge-gold">Nov 2026</span></td></tr>
+        <tr><td><strong>Silicon Valley</strong></td><td>Menlo Park / Palo Alto</td><td>TBD</td><td><span class="badge badge-gold">Nov 2026</span></td></tr>
+      </tbody>
+    </table>
+  </div>
 
-    <h2>How the Model Works</h2>
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-label">Step 1</div>
-        <div class="card-value" style="font-size:18px;">Invite & Attract</div>
-        <div class="card-desc">Curated prospect list, RSVP-driven evening events at gallery locations</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Step 2</div>
-        <div class="card-value" style="font-size:18px;">Meet & Engage</div>
-        <div class="card-desc">FA introductions on the floor, art as the conversation starter</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Step 3</div>
-        <div class="card-value" style="font-size:18px;">Follow & Close</div>
-        <div class="card-desc">Post-event outreach, scheduled meetings, recommendation and investment</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Step 4</div>
-        <div class="card-value" style="font-size:18px;">Retain & Collect</div>
-        <div class="card-desc">Long-term relationship, repeat investment, collector tier development</div>
-      </div>
-    </div>
+  <h2>The Team</h2>
+  <p>Each gallery location runs with four roles. Every person on the floor has a defined lane — the model only works when each role is operating within it.</p>
 
-    <h2>Active Locations</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Location</th><th>Address</th><th>Event Format</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td><strong>New York City</strong></td><td>30 East 74th Street</td><td>4–7:30pm, ~50 RSVPs/night</td><td><span class="badge badge-green">Active</span></td></tr>
-          <tr><td><strong>Beverly Hills</strong></td><td>TBD — lease in progress</td><td>TBD</td><td><span class="badge badge-gold">Nov 2026</span></td></tr>
-          <tr><td><strong>Silicon Valley</strong></td><td>Menlo Park / Palo Alto</td><td>TBD</td><td><span class="badge badge-gold">Nov 2026</span></td></tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Role</th><th>What They Own</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Managing Director</strong></td>
+          <td>Launches and leads the gallery location. Manages 2–4 advisors and the Gallery Events Manager. Carries capital raising accountability of $2–4M+ per month. Builds their own book while driving team production. The in-market face of Masterworks.</td>
+        </tr>
+        <tr>
+          <td><strong>Sr. Financial Advisor</strong></td>
+          <td>Owns rank 4–5 prospect relationships — the highest-value attendees. Responsible for converting gallery attendance into investment through direct relationship development. Builds their own pipeline, develops co-branded partner event opportunities, and sits in on Jr. FA meetings to provide senior credibility and closing support. No one schedules meetings on their behalf.</td>
+        </tr>
+        <tr>
+          <td><strong>Jr. Financial Advisor</strong><br><span style="font-size:11px;color:var(--muted);">Private Wealth Advisor</span></td>
+          <td>Owns rank 2–3 prospect relationships. Responsible for converting gallery attendance into investment through direct engagement and self-developed pipeline management. Drives high-volume outbound follow-up, advances deals toward a meeting, and hands off any attendee who reveals stronger investment capacity to the Sr. FA in real time. No one schedules meetings on their behalf.</td>
+        </tr>
+        <tr>
+          <td><strong>Gallery Events Manager</strong></td>
+          <td>Owns the gallery event experience end to end. Manages RSVPs, coordinates logistics, and ensures advisors have everything they need to focus on prospects. The true measure of success: events run so well that attendees are excited to return when invited again. Specific tasks will evolve — the experience standard doesn't.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="callout">
-      <div class="callout-label">Decision Authority</div>
-      <p>Markets, leases, comp structures, and senior hiring decisions route to Scott. Operations, process, activity management, and advisor accountability are managed at the gallery level.</p>
-    </div>
-  </section>
+  <a class="link-block" href="#team" onclick="event.preventDefault();document.querySelector('#team').scrollIntoView({behavior:'smooth'});">
+    <span class="link-icon">○</span>
+    <div class="link-text"><span class="link-title">Full Team & Roles</span><span class="link-desc">Decision rights, HubSpot owner IDs, transition notes</span></div>
+    <span class="link-arrow">→</span>
+  </a>
 
-  <!-- ── 2. TEAM & ROLES ────────────────────────────── -->
-  <section class="section" id="team">
-    <span class="section-eyebrow">Foundation</span>
-    <div class="section-title">Team &amp; Roles</div>
-    <div class="section-subtitle">Who owns what, and how decisions get made.</div>
-    <div class="divider"></div>
+  <h2>Model Days</h2>
+  <p>Two operating modes: event days and non-event days. CRM is updated in real time throughout both.</p>
 
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Name</th><th>Role</th><th>Owns</th><th>Routes to Scott</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><strong>Scott</strong></td>
-            <td>CEO &amp; Founder</td>
-            <td>Markets, leases, comp, senior hiring, final approval</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td><strong>Erik Bringsjord</strong></td>
-            <td>Sr. Financial Advisor</td>
-            <td>Investor relationships, meeting volume, pipeline quality</td>
-            <td>Comp adjustments, capacity decisions</td>
-          </tr>
-          <tr>
-            <td><strong>Anisha Mittal</strong></td>
-            <td>Gallery Events Manager</td>
-            <td>Event logistics, RSVP management, floor coordination</td>
-            <td>Budget, vendor contracts</td>
-          </tr>
-          <tr>
-            <td><strong>Katie</strong></td>
-            <td>Hiring Coordinator</td>
-            <td>JD posting, candidate pipeline, interview scheduling</td>
-            <td>Offer letters, comp packages</td>
-          </tr>
-          <tr>
-            <td><strong>New FA Hire</strong></td>
-            <td>Financial Advisor (Jr/Sr)</td>
-            <td>Meeting activity, CRM logging, conversion targets</td>
-            <td>See onboarding plan</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <h3>Event Day</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Time</th><th>Sr. Financial Advisor</th><th>Jr. Financial Advisor</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Morning</strong></td>
+          <td>Post-event follow-up calls on rank 4–5 pipeline. Pre-event account creation outreach.</td>
+          <td>Post-event follow-up calls on rank 2–3 pipeline. Pre-event account creation outreach.</td>
+        </tr>
+        <tr>
+          <td><strong>Afternoon</strong></td>
+          <td>Scheduled meetings. Jr. FA sit-ins as needed. Afternoon truncated — floor prep takes over.</td>
+          <td>Scheduled meetings. Request Sr. sit-in when needed. Afternoon truncated — floor prep takes over.</td>
+        </tr>
+        <tr>
+          <td><strong>4–7pm</strong></td>
+          <td>On the floor. Rank 4–5 prospect conversations, introductions, and next-step invitations.</td>
+          <td>On the floor. Rank 2–3 prospect conversations. Hand off to Sr. FA if stronger capacity revealed.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <h2>Org Structure Notes</h2>
-    <p>The team reports through Scott. Gallery-level operations carry accountability but not formal authority. When recommending decisions outside your lane — markets, leases, comp — lead with the recommendation and a clear ask, not a hedge.</p>
+  <h3>Non-Event Day</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Time</th><th>Sr. Financial Advisor</th><th>Jr. Financial Advisor</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Morning</strong></td>
+          <td>Pipeline calling — follow-up on rank 4–5s, pipeline development, partner development outreach.</td>
+          <td>Pipeline calling — follow-up on rank 2–3s, pipeline development calls.</td>
+        </tr>
+        <tr>
+          <td><strong>Afternoon</strong></td>
+          <td>Scheduled meetings. Partner development. Jr. FA sit-ins as requested.</td>
+          <td>Scheduled meetings. Request Sr. sit-in when needed. Outbound on deals without recent activity.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <h3>Key HubSpot Owner IDs</h3>
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-label">Erik Bringsjord</div>
-        <div class="card-value" style="font-size:22px; font-family: 'Inter', monospace;">73613833</div>
-        <div class="card-desc">Sr. FA — HubSpot Owner ID</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Anisha Mittal</div>
-        <div class="card-value" style="font-size:22px; font-family: 'Inter', monospace;">77771452</div>
-        <div class="card-desc">Events Manager — HubSpot Owner ID</div>
-      </div>
-    </div>
 
-    <div class="callout">
-      <div class="callout-label">Transition Note</div>
-      <p>Anisha's move from Sr. FA to Gallery Events Manager creates a CRM outreach gap. Until a new FA is ramped, existing deals in her pipeline require active ownership assignment. Review deal ownership in HubSpot before each event cycle.</p>
-    </div>
-  </section>
+</section>
 
-  <!-- ── 3. HIRING ──────────────────────────────────── -->
-  <section class="section" id="hiring">
-    <span class="section-eyebrow">Foundation</span>
-    <div class="section-title">Hiring</div>
-    <div class="section-subtitle">The profile, the process, and who moves it forward.</div>
-    <div class="divider"></div>
+<!-- ══ 2. DASHBOARDS & TOOLS ══════════════════════════ -->
+<section class="section" id="dashboards">
+  <span class="section-eyebrow">Daily</span>
+  <div class="section-title">Dashboards &amp; Tools</div>
+  <div class="section-subtitle">What's been built, what it tells you, and how to use it.</div>
+  <div class="divider"></div>
 
-    <h2>The Right Profile</h2>
-    <p>The gallery FA role is not a traditional wealth management position. The model demands a short-cycle, high-activity closer — someone who can work a room, qualify fast, follow up hard, and log everything. A relationship-builder who waits for trust to develop before asking for business is the wrong fit.</p>
+  <h2>Weekly Pipeline Health Dashboard</h2>
+  <p>The primary performance tool for the gallery channel. Auto-refreshes daily at 8am ET via GitHub Actions. Tracks deal volume, stage distribution, meeting activity, and pipeline velocity by FA.</p>
 
-    <h3>Must-Haves</h3>
-    <ul>
-      <li>Demonstrated high call/meeting volume in a previous role</li>
-      <li>Comfort closing in a compressed timeline (same week or next week)</li>
-      <li>Genuine interest in art or luxury — not required to be an expert, but must be credible on the floor</li>
-      <li>CRM discipline — logs without being reminded</li>
-      <li>Series 65 or ability to obtain quickly (discuss with Scott on licensing requirements)</li>
-    </ul>
+  <h3>How to Read It</h3>
+  <div class="needs-detail"><div class="needs-detail-icon">◎</div><div class="needs-detail-text"><strong>Needs detail:</strong> Walk through the key panels of the dashboard — what each metric means, what a healthy vs. unhealthy reading looks like, and what action it should trigger.</div></div>
 
-    <h3>Red Flags</h3>
-    <ul>
-      <li>Previous role was primarily inbound or account management</li>
-      <li>Defines success as "building a book over time"</li>
-      <li>Resistant to activity tracking or structured accountability</li>
-      <li>No evidence of working a high-volume pipeline</li>
-    </ul>
+  <h3>Who Uses It</h3>
+  <ul>
+    <li><strong>FA daily:</strong> Check meeting count, logging compliance, open follow-ups</li>
+    <li><strong>Anisha weekly:</strong> Event attendance vs. pipeline conversion, deal ownership gaps</li>
+    <li><strong>Sr. FA weekly review:</strong> Quality meeting rate, pipeline advances, ramp tracking for new hires</li>
+    <li><strong>Scott:</strong> Channel-level KPIs, capacity utilization, expansion readiness signals</li>
+  </ul>
 
-    <h2>Hiring Process</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker">1</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Post JD</div>
-          <div class="timeline-sub">Owner: Katie — awaiting Scott sign-off</div>
-          <p style="font-size:13px;">Private Wealth Advisor JD ready for posting. Confirm sign-off before Katie activates sourcing.</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">2</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Screen for Activity Profile</div>
-          <div class="timeline-sub">Owner: Hiring coordinator + gallery ops</div>
-          <p style="font-size:13px;">First filter: what was their weekly meeting or call volume in their last role? If they can't answer in a number, move on.</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">3</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Gallery Floor Interview</div>
-          <div class="timeline-sub">Owner: Sr. FA + gallery ops</div>
-          <p style="font-size:13px;">Walk the candidate through the gallery. Can they hold a conversation about the art? Are they comfortable in the environment? Do they ask good questions about the model?</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">4</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Role Play / Call Assessment</div>
-          <div class="timeline-sub">Owner: Sr. FA</div>
-          <p style="font-size:13px;">Run a simulated follow-up call. Are they coachable? Do they listen? Can they handle a soft objection without folding?</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">5</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Offer &amp; Onboard</div>
-          <div class="timeline-sub">Owner: Scott (comp) + Katie (paperwork)</div>
-          <p style="font-size:13px;">Comp structure and offer letter route to Scott. Once signed, onboarding begins Day 1 per the ramp plan.</p>
-        </div>
-      </div>
-    </div>
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">📊</span>
+    <div class="link-text"><span class="link-title">Weekly Pipeline Health Dashboard</span><span class="link-desc">Live — auto-refreshes 8am ET daily. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
 
-    <div class="callout">
-      <div class="callout-label">Christaan — Candidate in Process</div>
-      <p>Still evaluating fit against the gallery profile. Key question: short-cycle closer vs. traditional relationship builder. Run the role play assessment before advancing.</p>
-    </div>
+  <h2>Gallery Pipeline Capacity Analysis</h2>
+  <p>Models deal velocity and capacity by FA. Used to determine when a second Sr. FA is justified and to set quarterly pipeline targets.</p>
+  <div class="needs-detail"><div class="needs-detail-icon">◎</div><div class="needs-detail-text"><strong>Needs detail:</strong> How Anisha or gallery ops uses this tool — key inputs, how to interpret outputs, when to update it.</div></div>
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">📈</span>
+    <div class="link-text"><span class="link-title">Pipeline Capacity Analysis</span><span class="link-desc">Deal velocity framework. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
 
-    <h2>SDR Model Consideration</h2>
-    <p>The junior FA job description is under revision. The direction being explored: reframe the role as an SDR (Sales Development Rep) — sourcing, qualifying, and booking meetings for Sr. FAs rather than carrying their own book. This would allow faster hiring at lower comp and a cleaner ramp curve. Final call routes to Scott.</p>
+  <h2>3-Year Expansion Travel Model</h2>
+  <p>Interactive HTML tool modeling gallery expansion from 1 to 7 locations. Inputs: location, open date, FA headcount. Outputs: travel burden, cost projections, capacity by market.</p>
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">🗺️</span>
+    <div class="link-text"><span class="link-title">Expansion Travel Model</span><span class="link-desc">1 → 7 locations. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
 
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">📄</span>
-      <div class="link-text">
-        <span class="link-title">Private Wealth Advisor JD</span>
-        <span class="link-desc">Link to be added — awaiting final version</span>
-      </div>
-      <span class="link-arrow">→</span>
-    </a>
-  </section>
+  <h2>Variable Comp Model</h2>
+  <p>Internal tool for modeling FA comp against meeting volume and quality. Not public-facing — access through Scott.</p>
+  <div class="callout">
+    <div class="callout-label">Access</div>
+    <p>Comp model details are internal. Route comp questions to Scott. Career progression and public-facing comp bands live in the Hiring section.</p>
+  </div>
+</section>
 
-  <!-- ── 4. ONBOARDING & RAMP ───────────────────────── -->
-  <section class="section" id="onboarding">
-    <span class="section-eyebrow">Operations</span>
-    <div class="section-title">Onboarding &amp; Ramp</div>
-    <div class="section-subtitle">How a new advisor goes from hire to independent in 6 months.</div>
-    <div class="divider"></div>
+<!-- ══ 3. KPIs & RHYTHM ═══════════════════════════════ -->
+<section class="section" id="kpis">
+  <span class="section-eyebrow">Daily</span>
+  <div class="section-title">KPIs &amp; Operating Rhythm</div>
+  <div class="section-subtitle">What gets measured, who owns it, and how often it's reviewed.</div>
+  <div class="divider"></div>
 
-    <div class="phase-grid">
-      <div class="phase-card">
-        <div class="phase-num">01</div>
-        <div class="phase-title">Hiring &amp; Orientation</div>
-        <div class="phase-duration">Days 1–60</div>
-        <ul>
-          <li>Licensing completion</li>
-          <li>Platform and product training</li>
-          <li>HubSpot setup and CRM basics</li>
-          <li>Gallery floor orientation</li>
-          <li>Shadow Sr. FA at events</li>
-          <li>Hyperbound AI call training begins</li>
-        </ul>
-      </div>
-      <div class="phase-card">
-        <div class="phase-num">02</div>
-        <div class="phase-title">Phone &amp; AI Training</div>
-        <div class="phase-duration">Days 61–120</div>
-        <ul>
-          <li>Hyperbound AI call reps (daily)</li>
-          <li>Live call review with Sr. FA</li>
-          <li>First solo gallery event appearances</li>
-          <li>Begin building own pipeline</li>
-          <li>Hit 50% of meeting volume target</li>
-          <li>Weekly pipeline reviews start</li>
-        </ul>
-      </div>
-      <div class="phase-card">
-        <div class="phase-num">03</div>
-        <div class="phase-title">In-Person Gallery Training</div>
-        <div class="phase-duration">Days 121–180</div>
-        <ul>
-          <li>Full floor ownership at events</li>
-          <li>Independent meeting scheduling</li>
-          <li>Hit 80–100% of meeting target</li>
-          <li>First independent closes</li>
-          <li>90-day review with Scott</li>
-          <li>Transition to steady-state ops</li>
-        </ul>
+  <h2>FA Daily Non-Negotiables</h2>
+  <ul class="checklist">
+    <li><div class="check-box">□</div><div>All prior-day interactions logged in HubSpot before 10am</div></li>
+    <li><div class="check-box">□</div><div>Follow-up outreach sent on all Advisor Assigned and Active Relationship deals</div></li>
+    <li><div class="check-box">□</div><div>Meetings for the day confirmed</div></li>
+    <li><div class="check-box">□</div><div>Any deal stage changes documented with a note explaining the move</div></li>
+    <li><div class="check-box">□</div><div>Next steps set and logged for every qualified interaction</div></li>
+  </ul>
+
+  <h2>Weekly KPI Targets (Per FA at Full Ramp)</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th>Target</th><th>Owner</th><th>Reviewed</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Total Meetings</strong></td><td>25–30 / week</td><td>FA</td><td>Weekly pipeline review</td></tr>
+        <tr><td><strong>Quality Meetings (4–5 rating)</strong></td><td>&gt;50% of total</td><td>FA + Sr. FA</td><td>Weekly</td></tr>
+        <tr><td><strong>New Deals Created</strong></td><td>Based on event volume</td><td>FA / Anisha</td><td>Post-event within 24h</td></tr>
+        <tr><td><strong>Deals Advanced</strong></td><td>≥10% of active pipeline</td><td>FA</td><td>Weekly</td></tr>
+        <tr><td><strong>Same-Day Logging Rate</strong></td><td>100%</td><td>FA</td><td>Daily / weekly audit</td></tr>
+        <tr><td><strong>Follow-Up Response Rate</strong></td><td>Track &amp; improve weekly</td><td>FA</td><td>Weekly</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Activity Expectations by Pipeline Stage</h2>
+  <div class="needs-detail"><div class="needs-detail-icon">◎</div><div class="needs-detail-text"><strong>Needs content:</strong> Specific activity expectations per stage — contact frequency, touch cadence, what qualifies as a meaningful interaction at each stage. Pull from existing activity expectations doc or build here.</div></div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stage</th><th>Expected Activity</th><th>Cadence</th><th>Escalate If</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Advisor Assigned</strong></td><td>Initial outreach call or message sent</td><td>Within 48h of assignment</td><td>No response after 3 attempts</td></tr>
+        <tr><td><strong>Active Relationship</strong></td><td>Scheduled touchpoints, meeting activity</td><td>Weekly minimum</td><td>No meeting in 2 weeks</td></tr>
+        <tr><td><strong>Recommendation Made</strong></td><td>Follow-up on decision, handle objections</td><td>Every 3–5 days</td><td>No movement in 10 days</td></tr>
+        <tr><td><strong>Long Term Relationship</strong></td><td>Nurture cadence, event invitations</td><td>Monthly minimum</td><td>No contact in 45 days</td></tr>
+        <tr><td><strong>Collector</strong></td><td>Re-engagement for next offering</td><td>At new offering launch</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Weekly Operating Cadence</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-marker" style="font-size:9px;">MON</div>
+      <div class="timeline-content">
+        <div class="timeline-heading">Week Open</div>
+        <div class="timeline-sub">FA-led</div>
+        <p style="font-size:13px;">Review pipeline, confirm week's meetings, identify deals to advance, send follow-ups on all active deals.</p>
       </div>
     </div>
-
-    <h2>Ramp Targets</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Milestone</th><th>Day 30</th><th>Day 60</th><th>Day 90</th><th>Day 120</th><th>Day 180</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><strong>Meetings / Week</strong></td>
-            <td>Shadow only</td><td>5–8</td><td>10–15</td><td>15–20</td><td>25–30</td>
-          </tr>
-          <tr>
-            <td><strong>Pipeline Deals</strong></td>
-            <td>0</td><td>10–20</td><td>25–40</td><td>40–60</td><td>60+</td>
-          </tr>
-          <tr>
-            <td><strong>First Close</strong></td>
-            <td>—</td><td>—</td><td>Target</td><td>Expected</td><td>Consistent</td>
-          </tr>
-          <tr>
-            <td><strong>CRM Logging</strong></td>
-            <td>Same-day</td><td>Same-day</td><td>Same-day</td><td>Same-day</td><td>Same-day</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="callout">
-      <div class="callout-label">Non-Negotiable</div>
-      <p>CRM logging is same-day, every interaction, no exceptions. This is an activity-managed model. If it isn't logged, it didn't happen.</p>
-    </div>
-
-    <h2>Training Resources</h2>
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">📋</span>
-      <div class="link-text">
-        <span class="link-title">Sr. FA 6-Month Training Program</span>
-        <span class="link-desc">Full 3-phase program document — link to be added</span>
-      </div>
-      <span class="link-arrow">→</span>
-    </a>
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">🤖</span>
-      <div class="link-text">
-        <span class="link-title">Hyperbound AI Call Training</span>
-        <span class="link-desc">Platform access and training scenarios — link to be added</span>
-      </div>
-      <span class="link-arrow">→</span>
-    </a>
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">🎧</span>
-      <div class="link-text">
-        <span class="link-title">Gallery Sales Assistant Daily Operations Guide</span>
-        <span class="link-desc">Day-to-day reference for new gallery staff — link to be added</span>
-      </div>
-      <span class="link-arrow">→</span>
-    </a>
-  </section>
-
-  <!-- ── 5. EVENT EXECUTION ─────────────────────────── -->
-  <section class="section" id="events">
-    <span class="section-eyebrow">Operations</span>
-    <div class="section-title">Event Execution</div>
-    <div class="section-subtitle">Before, during, and after every gallery night.</div>
-    <div class="divider"></div>
-
-    <h2>Pre-Event (48–72 Hours Out)</h2>
-    <ul class="checklist">
-      <li><div class="check-box">□</div><div>RSVP list finalized — target ~50 confirmed attendees. Owner: Anisha</div></li>
-      <li><div class="check-box">□</div><div>Existing investors on RSVP list flagged and assigned to their deal owner in HubSpot. Owner: CRM admin</div></li>
-      <li><div class="check-box">□</div><div>New prospects without deals — deals pre-created in HubSpot at pre-"Advisor Assigned" stage. Owner: Anisha</div></li>
-      <li><div class="check-box">□</div><div>FA briefed on high-priority prospects attending — top 10 names, background, any prior interactions. Owner: Sr. FA</div></li>
-      <li><div class="check-box">□</div><div>Gallery space confirmed: art installed, lighting checked, catering confirmed, check-in table set. Owner: Anisha</div></li>
-      <li><div class="check-box">□</div><div>Confirmation reminders sent to all RSVPs. Owner: Anisha</div></li>
-    </ul>
-
-    <h2>Event Night (4:00–7:30pm, NYC)</h2>
-    <ul class="checklist">
-      <li><div class="check-box">□</div><div>FA arrives 30 min early — reviews priority prospect list, reviews art talking points. Owner: FA</div></li>
-      <li><div class="check-box">□</div><div>Check-in table staffed — guests signed in, names matched to HubSpot RSVP list. Owner: Anisha / gallery staff</div></li>
-      <li><div class="check-box">□</div><div>FA works the floor — art introductions, qualifying conversations, next-step invitations. Owner: FA</div></li>
-      <li><div class="check-box">□</div><div>No-shows noted in HubSpot. Walk-ins created as new contacts. Owner: FA / Anisha</div></li>
-      <li><div class="check-box">□</div><div>FA captures at least one concrete next step per qualified conversation (meeting booked, call scheduled). Owner: FA</div></li>
-    </ul>
-
-    <h2>Post-Event (Within 24 Hours)</h2>
-    <ul class="checklist">
-      <li><div class="check-box">□</div><div>All event interactions logged in HubSpot — attendance, conversation notes, next step. Owner: FA</div></li>
-      <li><div class="check-box">□</div><div>Follow-up outreach sent to all qualified conversations. Owner: FA</div></li>
-      <li><div class="check-box">□</div><div>Deals advanced to "Advisor Assigned" for any new prospects with a next step. Owner: FA</div></li>
-      <li><div class="check-box">□</div><div>No-show re-engagement sequence triggered. Owner: FA / CRM automation</div></li>
-      <li><div class="check-box">□</div><div>Event recap: attendance count, conversion rate (conversation → next step), pipeline adds. Owner: Anisha</div></li>
-    </ul>
-
-    <div class="callout">
-      <div class="callout-label">April 9 Automation Change</div>
-      <p>Since April 9, all event attendees automatically receive a HubSpot deal at the pre-"Advisor Assigned" stage. Prior to this, advisors created deals manually. Significant carryover cleanup is still in progress — review deal ownership before each event to avoid orphaned deals.</p>
-    </div>
-  </section>
-
-  <!-- ── 6. ADVISOR PLAYBOOK ────────────────────────── -->
-  <section class="section" id="playbook">
-    <span class="section-eyebrow">Operations</span>
-    <div class="section-title">Advisor Playbook</div>
-    <div class="section-subtitle">From gallery floor to close.</div>
-    <div class="divider"></div>
-
-    <p>The full advisor playbook lives as a standalone document. This section captures the core framework and links to the complete resource.</p>
-
-    <h2>The Conversion Framework</h2>
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-label">Gallery Conversation</div>
-        <div class="card-value" style="font-size:18px;">Qualify</div>
-        <div class="card-desc">Identify interest, investment capacity, and timeline. Art is the entry point — investment is the destination.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Follow-Up</div>
-        <div class="card-value" style="font-size:18px;">Schedule</div>
-        <div class="card-desc">Book the meeting within 48 hours of the event. Speed of follow-up is a strong signal to the prospect.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Meeting</div>
-        <div class="card-value" style="font-size:18px;">Recommend</div>
-        <div class="card-desc">Present the specific offering. Ask for the investment. Handle objections. Close or establish a concrete next step.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Post-Close</div>
-        <div class="card-value" style="font-size:18px;">Retain</div>
-        <div class="card-desc">Move to "Collector" pipeline stage. Re-engage for next offering. Build toward repeat investment.</div>
+    <div class="timeline-item">
+      <div class="timeline-marker" style="font-size:9px;">WED</div>
+      <div class="timeline-content">
+        <div class="timeline-heading">Mid-Week Check</div>
+        <div class="timeline-sub">FA + Sr. FA</div>
+        <p style="font-size:13px;">Meeting quality pulse. Any stuck deals. Event prep if event is this week. Logging compliance check.</p>
       </div>
     </div>
-
-    <h2>Meeting Quality Standards</h2>
-    <p>Not all meetings are equal. The model uses a 1–5 quality rating. Only 4s and 5s drive meaningful conversion. FA accountability is measured against quality meeting volume, not raw meeting count.</p>
-
-    <div class="stat-row">
-      <div class="stat">
-        <span class="stat-num">4–5</span>
-        <div class="stat-label">Target meeting quality rating</div>
-      </div>
-      <div class="stat">
-        <span class="stat-num">25–30</span>
-        <div class="stat-label">Target meetings per FA per week (at capacity)</div>
-      </div>
-      <div class="stat">
-        <span class="stat-num">$11,764</span>
-        <div class="stat-label">Modeled revenue per meeting ($1.576M ÷ 134 meetings)</div>
+    <div class="timeline-item">
+      <div class="timeline-marker" style="font-size:9px;">FRI</div>
+      <div class="timeline-content">
+        <div class="timeline-heading">Pipeline Review</div>
+        <div class="timeline-sub">FA + gallery ops</div>
+        <p style="font-size:13px;">Weekly KPIs vs. targets. Deals advanced, meetings held, quality ratings, logging compliance. Following-week priorities set.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">📖</span>
-      <div class="link-text">
-        <span class="link-title">From Gallery to Close — Full Advisor Playbook</span>
-        <span class="link-desc">Complete playbook document — link to be added</span>
-      </div>
-      <span class="link-arrow">→</span>
-    </a>
-  </section>
+<!-- ══ 4. CRM & PIPELINE ══════════════════════════════ -->
+<section class="section" id="crm">
+  <span class="section-eyebrow">Operations</span>
+  <div class="section-title">CRM &amp; Pipeline</div>
+  <div class="section-subtitle">HubSpot is the system of record. Everything gets logged.</div>
+  <div class="divider"></div>
 
-  <!-- ── 7. CRM & PIPELINE ──────────────────────────── -->
-  <section class="section" id="crm">
-    <span class="section-eyebrow">Performance</span>
-    <div class="section-title">CRM &amp; Pipeline</div>
-    <div class="section-subtitle">HubSpot is the system of record. Everything gets logged.</div>
-    <div class="divider"></div>
+  <div class="card-grid" style="grid-template-columns:repeat(2,1fr);max-width:480px;">
+    <div class="card"><div class="card-label">Pipeline ID</div><div class="card-value" style="font-size:20px;font-family:monospace;">880355706</div></div>
+    <div class="card"><div class="card-label">Missing Permission</div><div class="card-value" style="font-size:13px;color:var(--muted);">crm.objects.<br>meetings.read</div><div class="card-desc">Workarounds in place</div></div>
+  </div>
 
-    <h3>Pipeline Reference</h3>
-    <div class="card-grid" style="grid-template-columns: repeat(2, 1fr); max-width:480px;">
-      <div class="card">
-        <div class="card-label">Pipeline ID</div>
-        <div class="card-value" style="font-size:20px; font-family: monospace;">880355706</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Missing Permission</div>
-        <div class="card-value" style="font-size:13px; color: var(--muted);">crm.objects.<br>meetings.read</div>
-        <div class="card-desc">Workarounds in place</div>
-      </div>
-    </div>
+  <h2>Pipeline Stages</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage"><div class="pipeline-dot" style="background:var(--muted);"></div><div class="pipeline-name">Pre-Stage (Auto)</div><div class="pipeline-desc">Auto-created for all event attendees since April 9</div></div>
+    <div class="pipeline-stage"><div class="pipeline-dot"></div><div class="pipeline-name">Advisor Assigned</div><div class="pipeline-desc">FA has taken ownership; outreach underway within 48h</div></div>
+    <div class="pipeline-stage"><div class="pipeline-dot"></div><div class="pipeline-name">Active Relationship</div><div class="pipeline-desc">Ongoing engagement; meetings occurring</div></div>
+    <div class="pipeline-stage"><div class="pipeline-dot"></div><div class="pipeline-name">Recommendation Made</div><div class="pipeline-desc">Specific offering presented; awaiting decision</div></div>
+    <div class="pipeline-stage"><div class="pipeline-dot" style="background:#48BB78;"></div><div class="pipeline-name">Collector</div><div class="pipeline-desc">Has invested; retain and re-engage for next offering</div></div>
+    <div class="pipeline-stage"><div class="pipeline-dot" style="background:var(--muted);"></div><div class="pipeline-name">Long Term Relationship</div><div class="pipeline-desc">Engaged but not yet invested; maintain monthly cadence</div></div>
+    <div class="pipeline-stage"><div class="pipeline-dot" style="background:var(--muted);"></div><div class="pipeline-name">Self Serve</div><div class="pipeline-desc">DQ'd or investor managing independently; light touch</div></div>
+    <div class="pipeline-stage"><div class="pipeline-dot" style="background:var(--muted);"></div><div class="pipeline-name">Financial Advisor</div><div class="pipeline-desc">Referred by a third-party FA; separate handling</div></div>
+  </div>
 
-    <h2>Pipeline Stages</h2>
-    <div class="pipeline">
-      <div class="pipeline-stage">
-        <div class="pipeline-dot" style="background: var(--muted);"></div>
-        <div class="pipeline-name">Pre-Stage (Auto)</div>
-        <div class="pipeline-desc">Auto-created for all event attendees since April 9</div>
-      </div>
-      <div class="pipeline-stage">
-        <div class="pipeline-dot"></div>
-        <div class="pipeline-name">Advisor Assigned</div>
-        <div class="pipeline-desc">FA has taken ownership; outreach underway</div>
-      </div>
-      <div class="pipeline-stage">
-        <div class="pipeline-dot"></div>
-        <div class="pipeline-name">Active Relationship</div>
-        <div class="pipeline-desc">Ongoing engagement; meetings occurring</div>
-      </div>
-      <div class="pipeline-stage">
-        <div class="pipeline-dot"></div>
-        <div class="pipeline-name">Recommendation Made</div>
-        <div class="pipeline-desc">Specific offering presented; awaiting decision</div>
-      </div>
-      <div class="pipeline-stage">
-        <div class="pipeline-dot" style="background: #48BB78;"></div>
-        <div class="pipeline-name">Collector</div>
-        <div class="pipeline-desc">Has invested; retain and re-engage for next offering</div>
-      </div>
-      <div class="pipeline-stage">
-        <div class="pipeline-dot" style="background: var(--muted);"></div>
-        <div class="pipeline-name">Long Term Relationship</div>
-        <div class="pipeline-desc">Engaged but not yet invested; maintain cadence</div>
-      </div>
-      <div class="pipeline-stage">
-        <div class="pipeline-dot" style="background: var(--muted);"></div>
-        <div class="pipeline-name">Self Serve</div>
-        <div class="pipeline-desc">Investor managing independently; light touch</div>
-      </div>
-      <div class="pipeline-stage">
-        <div class="pipeline-dot" style="background: var(--muted);"></div>
-        <div class="pipeline-name">Financial Advisor</div>
-        <div class="pipeline-desc">Referred by a third-party FA; separate handling</div>
-      </div>
-    </div>
+  <h2>Deal Ownership Rules</h2>
+  <ul>
+    <li>Existing investors attending gallery events remain assigned to their original deal owner — do not reassign.</li>
+    <li>New prospects met at events are assigned to the FA who held the floor conversation.</li>
+    <li>Unassigned deals from Anisha's FA transition require manual review and reassignment before each event cycle.</li>
+    <li>All deal stage movements must be accompanied by a logged activity note explaining the move.</li>
+    <li>DQ decisions: move to Self Serve. Document reason in notes.</li>
+  </ul>
 
-    <h2>Deal Ownership Rules</h2>
-    <ul>
-      <li>Existing investors attending gallery events remain assigned to their original deal owner — do not reassign.</li>
-      <li>New prospects met at events are assigned to the FA who held the floor conversation.</li>
-      <li>Unassigned deals from Anisha's FA transition require manual review and reassignment before next event cycle.</li>
-      <li>All deal stage movements must be accompanied by a logged activity note explaining the move.</li>
-    </ul>
+  <div class="callout">
+    <div class="callout-label">April 9 Automation Change</div>
+    <p>Since April 9, all event attendees automatically receive a HubSpot deal at the pre-"Advisor Assigned" stage. Prior to this, advisors created deals manually. Significant carryover cleanup still in progress — review deal ownership before every event cycle.</p>
+  </div>
 
-    <h2>Dashboards &amp; Reporting</h2>
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">📊</span>
-      <div class="link-text">
-        <span class="link-title">Weekly Pipeline Health Dashboard</span>
-        <span class="link-desc">Auto-refreshes daily at 8am ET via GitHub Actions — link to be added</span>
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">📊</span>
+    <div class="link-text"><span class="link-title">Weekly Pipeline Health Dashboard</span><span class="link-desc">Auto-refreshes 8am ET daily. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
+</section>
+
+<!-- ══ 5. CALL STRATEGY & SCRIPTING ══════════════════ -->
+<section class="section" id="callstrategy">
+  <span class="section-eyebrow">Operations</span>
+  <div class="section-title">Call Strategy &amp; Scripting</div>
+  <div class="section-subtitle">What to say, when to say it, and what you're trying to learn.</div>
+  <div class="divider"></div>
+
+  <div class="callout">
+    <div class="callout-label">The Standard</div>
+    <p>Every call has one job. Know what it is before you dial. The goal of a post-event call is never to "check in" — it's to qualify, advance, or make a decision.</p>
+  </div>
+
+  <h2>Post-Event: Prospect Booked a Meeting at the Gallery</h2>
+  <p>This is the first formal touch. The prospect is warm — they showed up, they met you, they agreed to a conversation. The job of this call is to qualify suitability, get a sense of portfolio size, and prime them for the allocation conversation that follows. By the end of this call you should know: are they interested, is this suitable, what are the next steps to advance them toward investment?</p>
+
+  <h3>Call Goals</h3>
+  <ul>
+    <li>Confirm their interest is genuine (vs. polite gallery curiosity)</li>
+    <li>Establish suitability — investable assets, investment experience, timeline</li>
+    <li>Gauge portfolio size — enough to have a meaningful allocation conversation</li>
+    <li>Determine path: advance to recommendation call, warm up more, or DQ to self-serve</li>
+    <li>Set clear next step before hanging up</li>
+  </ul>
+
+  <h3>Outcomes After This Call</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Signal</th><th>Stage Move</th><th>Next Step</th></tr></thead>
+      <tbody>
+        <tr><td>Interested, suitable, portfolio confirmed</td><td>→ Active Relationship</td><td>Book recommendation call within the week</td></tr>
+        <tr><td>Interested but needs more warming</td><td>Stay in Active Relationship</td><td>Set specific next touchpoint — event invite, follow-up article, check-in date</td></tr>
+        <tr><td>Not suitable / below threshold</td><td>→ Self Serve</td><td>Warm handoff — acknowledge they're not the right fit for the current model, point to self-serve platform</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="script-block">
+    <div class="script-header"><span class="script-label">Script</span><span class="script-title">Post-Event Booked — Qualification Call (~15 min)</span></div>
+    <div class="script-body">
+      <div class="script-line">
+        <div class="script-role">Open</div>
+        <div class="script-text">"[Name], great to connect — really glad you could make it [Tuesday/Thursday]. I wanted to get a few minutes with you before our meeting to make sure we use your time well when we sit down."</div>
       </div>
-      <span class="link-arrow">→</span>
-    </a>
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">📈</span>
-      <div class="link-text">
-        <span class="link-title">Gallery Pipeline Capacity Analysis</span>
-        <span class="link-desc">Deal velocity framework — link to be added</span>
+      <hr class="script-divider">
+      <div class="script-line">
+        <div class="script-role">Confirm Interest</div>
+        <div class="script-text">"Tell me what drew you in — was it a specific piece, the model, or just curious to see what we're doing?"</div>
+        <div class="script-note">Listen for: genuine investment interest vs. social curiosity. Adjust depth of qualification accordingly.</div>
       </div>
-      <span class="link-arrow">→</span>
-    </a>
-  </section>
-
-  <!-- ── 8. KPIs & RHYTHM ───────────────────────────── -->
-  <section class="section" id="kpis">
-    <span class="section-eyebrow">Performance</span>
-    <div class="section-title">KPIs &amp; Operating Rhythm</div>
-    <div class="section-subtitle">What gets measured, who owns it, and how often it's reviewed.</div>
-    <div class="divider"></div>
-
-    <h2>FA Daily Expectations</h2>
-    <ul class="checklist">
-      <li><div class="check-box">□</div><div>All prior-day interactions logged in HubSpot before 10am</div></li>
-      <li><div class="check-box">□</div><div>Follow-up outreach sent on all open "Advisor Assigned" and "Active Relationship" deals</div></li>
-      <li><div class="check-box">□</div><div>Meetings booked for the week reviewed and confirmed</div></li>
-      <li><div class="check-box">□</div><div>Any deal stage changes documented with a note</div></li>
-    </ul>
-
-    <h2>Weekly KPI Targets (Per FA at Full Ramp)</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Metric</th><th>Target</th><th>Owner</th><th>Reviewed</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Total Meetings</strong></td><td>25–30 / week</td><td>FA</td><td>Weekly pipeline review</td></tr>
-          <tr><td><strong>Quality Meetings (4–5 rating)</strong></td><td>&gt;50% of total</td><td>FA + Sr. FA review</td><td>Weekly</td></tr>
-          <tr><td><strong>New Deals Created</strong></td><td>Based on event volume</td><td>FA / Anisha</td><td>Post-event (within 24h)</td></tr>
-          <tr><td><strong>Deals Advanced</strong></td><td>≥10% of active pipeline</td><td>FA</td><td>Weekly</td></tr>
-          <tr><td><strong>Follow-Up Response Rate</strong></td><td>Track &amp; improve weekly</td><td>FA</td><td>Weekly</td></tr>
-          <tr><td><strong>Same-Day Logging Rate</strong></td><td>100%</td><td>FA</td><td>Daily / weekly audit</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2>Weekly Operating Cadence</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker" style="font-size:9px;">MON</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Week Open</div>
-          <div class="timeline-sub">FA-led</div>
-          <p style="font-size:13px;">Review pipeline, confirm week's meetings, identify deals to advance, send follow-ups on all active deals.</p>
-        </div>
+      <hr class="script-divider">
+      <div class="script-line">
+        <div class="script-role">Qualify Suitability</div>
+        <div class="script-text">"Our investors typically have [X] in investable assets and are looking to diversify into alternatives — does that resonate with where you are right now?"</div>
+        <div class="script-note">Needs detail: confirm minimum investable asset threshold and accreditation language with Scott/compliance.</div>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-marker" style="font-size:9px;">WED</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Mid-Week Check</div>
-          <div class="timeline-sub">FA + Sr. FA or gallery ops</div>
-          <p style="font-size:13px;">Pulse on meeting quality, any stuck deals, event prep if event is this week.</p>
-        </div>
+      <hr class="script-divider">
+      <div class="script-line">
+        <div class="script-role">Gauge Allocation Readiness</div>
+        <div class="script-text">"When you think about your current portfolio — are you actively looking to put capital to work, or more in an exploratory phase right now?"</div>
+        <div class="script-note">Not asking for a number. Asking for intent and timeline.</div>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-marker" style="font-size:9px;">FRI</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Pipeline Review</div>
-          <div class="timeline-sub">FA + gallery ops (weekly)</div>
-          <p style="font-size:13px;">Review weekly KPIs against targets. Deals advanced, meetings held, quality ratings, logging compliance. Identify following-week priorities.</p>
-        </div>
+      <hr class="script-divider">
+      <div class="script-line">
+        <div class="script-role">Set the Next Step</div>
+        <div class="script-text">"Based on what you've told me, I think our meeting is going to be really productive — I'll come prepared with a specific allocation we can talk through. Does [day/time] still work for you?"</div>
       </div>
     </div>
+  </div>
 
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">📊</span>
-      <div class="link-text">
-        <span class="link-title">Weekly Pipeline Health Dashboard</span>
-        <span class="link-desc">Live dashboard — link to be added</span>
+  <h2>Post-Event: Prospect Did Not Book a Meeting</h2>
+  <p>This is a 3-minute call. One goal: get the 15-minute warm-up call on the calendar. Don't qualify here. Don't pitch here. The meeting is the product — sell that.</p>
+
+  <h3>Call Goals</h3>
+  <ul>
+    <li>Reconnect briefly on the gallery experience</li>
+    <li>Make the ask for a 15-minute call — frame it as low-stakes</li>
+    <li>Get a specific time on the calendar before hanging up</li>
+  </ul>
+
+  <div class="script-block">
+    <div class="script-header"><span class="script-label">Script</span><span class="script-title">Post-Event No-Book — 3-Minute Scheduling Call</span></div>
+    <div class="script-body">
+      <div class="script-line">
+        <div class="script-role">Open</div>
+        <div class="script-text">"[Name], this is [FA] from Masterworks — we met at the gallery [Tuesday/Thursday]. Do you have 2 minutes?"</div>
       </div>
-      <span class="link-arrow">→</span>
-    </a>
-  </section>
-
-  <!-- ── 9. COMPENSATION ────────────────────────────── -->
-  <section class="section" id="comp">
-    <span class="section-eyebrow">Performance</span>
-    <div class="section-title">Compensation</div>
-    <div class="section-subtitle">How the model values activity and rewards performance.</div>
-    <div class="divider"></div>
-
-    <div class="callout">
-      <div class="callout-label">Scott's Lane</div>
-      <p>Specific comp packages, offer letters, and base salary decisions route to Scott. This section documents the framework and bridge metric used to model variable comp.</p>
-    </div>
-
-    <h2>The Meeting Value Framework</h2>
-    <p>The model uses a bridge metric — revenue per meeting — to connect activity to economic output. This gives the comp model a grounded basis that isn't purely subjective.</p>
-
-    <div class="stat-row">
-      <div class="stat">
-        <span class="stat-num">$1.576M</span>
-        <div class="stat-label">Total revenue baseline (modeling period)</div>
+      <hr class="script-divider">
+      <div class="script-line">
+        <div class="script-role">Reference the Event</div>
+        <div class="script-text">"Glad you could make it — I wanted to follow up while it was fresh. Did anything from the evening stand out to you?"</div>
+        <div class="script-note">Let them talk. One sentence response. Don't go deep here.</div>
       </div>
-      <div class="stat">
-        <span class="stat-num">134</span>
-        <div class="stat-label">Logged meetings in period</div>
+      <hr class="script-divider">
+      <div class="script-line">
+        <div class="script-role">Make the Ask</div>
+        <div class="script-text">"I'd love to get 15 minutes with you — not a pitch, just a quick conversation to see if what we're doing is relevant to where you are. Are you free [specific day] or [specific day] this week?"</div>
+        <div class="script-note">Give two options. Do not ask "when are you free" — it pushes the decision to them.</div>
       </div>
-      <div class="stat">
-        <span class="stat-num">$11,764</span>
-        <div class="stat-label">Modeled revenue per meeting</div>
+      <hr class="script-divider">
+      <div class="script-line">
+        <div class="script-role">If They Push Back</div>
+        <div class="script-text">"Totally fair — it's 15 minutes and if it's not a fit, you'll know quickly. What does next week look like?"</div>
       </div>
     </div>
+  </div>
 
-    <p>At 25–30 meetings per week per FA, the implied revenue capacity per FA is significant. Variable comp structures should be built against meeting volume and quality rating thresholds — not just raw revenue, which lags too far behind activity to be a useful real-time signal.</p>
+  <h2>Call Strategy by Pipeline Stage</h2>
+  <div class="needs-detail"><div class="needs-detail-icon">◎</div><div class="needs-detail-text"><strong>Needs edit:</strong> Full call strategy by stage doc exists — needs to be pulled in and edited here. Covers Advisor Assigned through Recommendation Made.</div></div>
 
-    <h2>Variable Comp Design Principles</h2>
-    <ul>
-      <li>Activity metrics (meetings, quality rating) should precede revenue metrics in the payout structure — they're the leading indicator</li>
-      <li>Comp should reward quality over quantity — a 4/5-rated meeting tier should pay more per deal than a 2/3-rated meeting tier</li>
-      <li>New FA ramp comp should be front-loaded (higher base, lower variable) and shift toward performance-weighted over 6 months</li>
-      <li>All comp structures finalize with Scott</li>
-    </ul>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stage</th><th>Call Objective</th><th>Tone</th><th>Success = </th></tr></thead>
+      <tbody>
+        <tr><td><strong>Advisor Assigned</strong></td><td>Book the 15-min warm-up call</td><td>Brief, direct, low-pressure</td><td>Call on calendar</td></tr>
+        <tr><td><strong>Active Relationship</strong></td><td>Qualify suitability, gauge timeline, set path</td><td>Consultative, curious</td><td>Clear next step defined</td></tr>
+        <tr><td><strong>Recommendation Made</strong></td><td>Handle objections, close or set decision timeline</td><td>Confident, direct</td><td>Investment or committed timeline</td></tr>
+        <tr><td><strong>Long Term Relationship</strong></td><td>Maintain presence, re-qualify at trigger events</td><td>Warm, no pressure</td><td>Event attendance or future meeting booked</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">💰</span>
-      <div class="link-text">
-        <span class="link-title">Variable Comp Model — Full Analysis</span>
-        <span class="link-desc">Meeting value framework and comp modeling tool — link to be added</span>
-      </div>
-      <span class="link-arrow">→</span>
-    </a>
-  </section>
+<!-- ══ 6. EVENT EXECUTION ═════════════════════════════ -->
+<section class="section" id="events">
+  <span class="section-eyebrow">Operations</span>
+  <div class="section-title">Event Execution</div>
+  <div class="section-subtitle">Before, during, and after every gallery night.</div>
+  <div class="divider"></div>
 
-  <!-- ── 10. REAL ESTATE & EXPANSION ───────────────── -->
-  <section class="section" id="realestate">
-    <span class="section-eyebrow">Growth</span>
-    <div class="section-title">Real Estate &amp; Expansion</div>
-    <div class="section-subtitle">Active locations, deals in progress, and the 3-year growth model.</div>
-    <div class="divider"></div>
+  <h2>Pre-Event (48–72 Hours Out)</h2>
+  <ul class="checklist">
+    <li><div class="check-box">□</div><div>RSVP list finalized — target ~50 confirmed. Owner: Anisha</div></li>
+    <li><div class="check-box">□</div><div>Existing investors on RSVP list flagged — deal ownership confirmed in HubSpot. Owner: Anisha / CRM</div></li>
+    <li><div class="check-box">□</div><div>New prospects — deals pre-created at pre-Advisor Assigned stage. Owner: Anisha</div></li>
+    <li><div class="check-box">□</div><div>FA briefed on top 10 priority prospects — background and any prior interactions. Owner: Sr. FA</div></li>
+    <li><div class="check-box">□</div><div>Gallery space confirmed: art installed, lighting, catering, check-in table. Owner: Anisha</div></li>
+    <li><div class="check-box">□</div><div>Confirmation reminders sent to all RSVPs. Owner: Anisha</div></li>
+  </ul>
 
-    <div class="callout">
-      <div class="callout-label">Scott's Lane</div>
-      <p>Lease decisions and market selection route to Scott. This section documents current status and open questions that need his direction.</p>
-    </div>
+  <h2>Event Night</h2>
+  <ul class="checklist">
+    <li><div class="check-box">□</div><div>FA arrives 30 min early — priority prospect list reviewed, art talking points ready. Owner: FA</div></li>
+    <li><div class="check-box">□</div><div>Check-in table staffed — guests signed in, matched to HubSpot RSVP list. Owner: Anisha</div></li>
+    <li><div class="check-box">□</div><div>FA works the floor — art introductions, qualifying conversations, next-step invitations. Owner: FA</div></li>
+    <li><div class="check-box">□</div><div>No-shows noted. Walk-ins created as new contacts. Owner: FA / Anisha</div></li>
+    <li><div class="check-box">□</div><div>FA captures at least one concrete next step per qualified conversation. Owner: FA</div></li>
+  </ul>
 
-    <h2>NYC — Active Search</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Address</th><th>Space</th><th>Key Details</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><strong>445 Park Avenue</strong></td>
-            <td>3,308 SF ground + 900 SF basement<br>50 ft frontage, 15 ft ceilings</td>
-            <td>Turnkey buildout. 74 family offices in building incl. Leon Black. Counter-offer memo prepared: $42K+1.5% vs. $40K+3% escalation, 10-year term.</td>
-            <td><span class="badge badge-gold">Awaiting Scott</span></td>
-          </tr>
-          <tr>
-            <td><strong>693 Fifth Avenue</strong></td>
-            <td>10th floor: 4,812 SF @ $85/RSF = $34,085/mo<br>Penthouse: 5-year sublease</td>
-            <td>Two blocks from 445 Park. Cheaper than 445's counter on both options. Carpenters Workshop Gallery (UHNW/billionaire clientele) is PH tenant. Landlord prefers Masterworks' use case.</td>
-            <td><span class="badge badge-gold">Scott to visit</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <h2>Post-Event (Within 24 Hours)</h2>
+  <ul class="checklist">
+    <li><div class="check-box">□</div><div>All interactions logged in HubSpot — attendance, notes, next step. Owner: FA</div></li>
+    <li><div class="check-box">□</div><div>Follow-up outreach sent to all qualified conversations. Owner: FA</div></li>
+    <li><div class="check-box">□</div><div>Deals advanced to Advisor Assigned for prospects with a next step. Owner: FA</div></li>
+    <li><div class="check-box">□</div><div>No-show re-engagement sequence triggered. Owner: FA / CRM automation</div></li>
+    <li><div class="check-box">□</div><div>Event recap logged: attendance count, pipeline adds, conversation-to-next-step rate. Owner: Anisha</div></li>
+  </ul>
+</section>
 
-    <h2>Expansion Markets — November 2026 Target</h2>
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-label">Market</div>
-        <div class="card-value" style="font-size:20px;">Beverly Hills</div>
-        <div class="card-desc">Broker: Figure 8 Commercial (LA)</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Market</div>
-        <div class="card-value" style="font-size:20px;">Silicon Valley</div>
-        <div class="card-desc">Menlo Park / Palo Alto. Broker: Blatteis Realty (SF/SV)</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Market</div>
-        <div class="card-value" style="font-size:20px;">New York (2nd)</div>
-        <div class="card-desc">Added later to expansion plan. Broker: Glanzrock / Cindy Farkas</div>
-      </div>
-    </div>
+<!-- ══ 7. ADVISOR PLAYBOOK ════════════════════════════ -->
+<section class="section" id="playbook">
+  <span class="section-eyebrow">Operations</span>
+  <div class="section-title">Advisor Playbook</div>
+  <div class="section-subtitle">From gallery floor to close.</div>
+  <div class="divider"></div>
 
-    <h2>Broker Contacts</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Market</th><th>Broker</th><th>Contact</th></tr></thead>
-        <tbody>
-          <tr><td>New York City</td><td>Glanzrock / Cindy Farkas</td><td>—</td></tr>
-          <tr><td>Los Angeles / Beverly Hills</td><td>Figure 8 Commercial</td><td>—</td></tr>
-          <tr><td>San Francisco / Silicon Valley</td><td>Blatteis Realty</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <p>The full advisor playbook is a standalone document. This section captures the core framework.</p>
 
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">🗺️</span>
-      <div class="link-text">
-        <span class="link-title">3-Year Expansion Travel Model</span>
-        <span class="link-desc">1 → 7 locations model (HTML tool) — link to be added</span>
-      </div>
-      <span class="link-arrow">→</span>
-    </a>
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">🏢</span>
-      <div class="link-text">
-        <span class="link-title">NYC Master Listings CSV</span>
-        <span class="link-desc">12 spaces across 6 buildings evaluated — link to be added</span>
-      </div>
-      <span class="link-arrow">→</span>
-    </a>
-  </section>
+  <h2>The Conversion Framework</h2>
+  <div class="card-grid">
+    <div class="card"><div class="card-label">Gallery Floor</div><div class="card-value" style="font-size:18px;">Qualify</div><div class="card-desc">Art is the entry point. Investment is the destination. Identify interest, capacity, timeline.</div></div>
+    <div class="card"><div class="card-label">Follow-Up</div><div class="card-value" style="font-size:18px;">Schedule</div><div class="card-desc">Book within 48 hours of the event. Speed of follow-up signals seriousness.</div></div>
+    <div class="card"><div class="card-label">Recommendation Call</div><div class="card-value" style="font-size:18px;">Close</div><div class="card-desc">Present the specific offering. Ask for the investment. Handle objections. Close or set a timeline.</div></div>
+    <div class="card"><div class="card-label">Post-Close</div><div class="card-value" style="font-size:18px;">Retain</div><div class="card-desc">Move to Collector stage. Re-engage for next offering. Build toward repeat investment.</div></div>
+  </div>
 
-  <!-- ── 11. PARTNER EVENTS ─────────────────────────── -->
-  <section class="section" id="partners">
-    <span class="section-eyebrow">Growth</span>
-    <div class="section-title">Partner Events</div>
-    <div class="section-subtitle">Co-branded events to expand the prospect network.</div>
-    <div class="divider"></div>
+  <div class="stat-row">
+    <div class="stat"><span class="stat-num">4–5</span><div class="stat-label">Target meeting quality rating</div></div>
+    <div class="stat"><span class="stat-num">25–30</span><div class="stat-label">Target meetings / FA / week at capacity</div></div>
+    <div class="stat"><span class="stat-num">$11,764</span><div class="stat-label">Modeled revenue per meeting</div></div>
+  </div>
 
-    <p>The Gallery Partner Events Program creates co-branded event opportunities with organizations that already serve Masterworks' target prospect profile. The goal: extend reach into HNW and UHNW networks beyond organic gallery attendance.</p>
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">📖</span>
+    <div class="link-text"><span class="link-title">From Gallery to Close — Full Advisor Playbook</span><span class="link-desc">Complete playbook document. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
+</section>
 
-    <h2>Eligible Partner Categories</h2>
-    <div class="card-grid">
-      <div class="card"><div class="card-label">Finance</div><div class="card-value" style="font-size:16px;">Wealth Managers &amp; RIAs</div></div>
-      <div class="card"><div class="card-label">Finance</div><div class="card-value" style="font-size:16px;">Family Offices</div></div>
-      <div class="card"><div class="card-label">Finance</div><div class="card-value" style="font-size:16px;">PE / VC Firms</div></div>
-      <div class="card"><div class="card-label">Professional</div><div class="card-value" style="font-size:16px;">T&amp;E Attorneys</div></div>
-      <div class="card"><div class="card-label">Professional</div><div class="card-value" style="font-size:16px;">CPA Firms</div></div>
-      <div class="card"><div class="card-label">Real Estate</div><div class="card-value" style="font-size:16px;">Luxury Residential Brokers</div></div>
-      <div class="card"><div class="card-label">Lifestyle</div><div class="card-value" style="font-size:16px;">Luxury Auto Dealerships</div></div>
-      <div class="card"><div class="card-label">Lifestyle</div><div class="card-value" style="font-size:16px;">Private Members Clubs</div></div>
-      <div class="card"><div class="card-label">Lifestyle</div><div class="card-value" style="font-size:16px;">Fine Wine / Spirits Importers</div></div>
-      <div class="card"><div class="card-label">Lifestyle</div><div class="card-value" style="font-size:16px;">Private Aviation</div></div>
-      <div class="card"><div class="card-label">Network</div><div class="card-value" style="font-size:16px;">Sports Teams / Agencies</div></div>
-      <div class="card"><div class="card-label">Network</div><div class="card-value" style="font-size:16px;">Tech Exec Networks</div></div>
-      <div class="card"><div class="card-label">Network</div><div class="card-value" style="font-size:16px;">Business School Alumni Clubs</div></div>
-    </div>
+<!-- ══ 8. TEAM & ROLES ════════════════════════════════ -->
+<section class="section" id="team">
+  <span class="section-eyebrow">Team</span>
+  <div class="section-title">Team &amp; Roles</div>
+  <div class="section-subtitle">Who owns what and how decisions get made.</div>
+  <div class="divider"></div>
 
-    <h3>Excluded Categories</h3>
-    <ul>
-      <li>Auction houses</li>
-      <li>Museum and cultural boards</li>
-    </ul>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Name</th><th>Role</th><th>Owns</th><th>Routes to Scott</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Scott</strong></td><td>CEO &amp; Founder</td><td>Markets, leases, comp, senior hiring, final approval</td><td>—</td></tr>
+        <tr><td><strong>Erik Bringsjord</strong></td><td>Sr. Financial Advisor</td><td>Investor relationships, meeting volume, pipeline quality</td><td>Comp adjustments, capacity decisions</td></tr>
+        <tr><td><strong>Anisha Mittal</strong></td><td>Gallery Events Manager</td><td>Event logistics, RSVP management, floor coordination, dashboard reporting</td><td>Budget, vendor contracts</td></tr>
+        <tr><td><strong>Katie</strong></td><td>Hiring Coordinator</td><td>JD posting, candidate pipeline, interview scheduling</td><td>Offer letters, comp packages</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-    <a class="link-block" href="#" onclick="return false;">
-      <span class="link-icon">🤝</span>
-      <div class="link-text">
-        <span class="link-title">Gallery Partner Events Program — Full Document</span>
-        <span class="link-desc">Program overview, partner outreach templates, event formats — link to be added</span>
-      </div>
-      <span class="link-arrow">→</span>
-    </a>
-  </section>
+  <h3>Key HubSpot Owner IDs</h3>
+  <div class="card-grid">
+    <div class="card"><div class="card-label">Erik Bringsjord</div><div class="card-value" style="font-size:22px;font-family:monospace;">73613833</div><div class="card-desc">Sr. FA — HubSpot Owner ID</div></div>
+    <div class="card"><div class="card-label">Anisha Mittal</div><div class="card-value" style="font-size:22px;font-family:monospace;">77771452</div><div class="card-desc">Events Manager — HubSpot Owner ID</div></div>
+  </div>
 
-  <!-- ── 12. 90-DAY CONTINUITY ──────────────────────── -->
-  <section class="section" id="continuity">
-    <span class="section-eyebrow">Growth</span>
-    <div class="section-title">90-Day Continuity Plan</div>
-    <div class="section-subtitle">What the team runs confidently without outside help.</div>
-    <div class="divider"></div>
+  <div class="callout">
+    <div class="callout-label">Transition Note</div>
+    <p>Anisha's move from Sr. FA to Gallery Events Manager creates a CRM outreach gap. Until a new FA is ramped, existing deals in her pipeline require active ownership assignment. Review before every event cycle.</p>
+  </div>
+</section>
 
-    <p>This section documents what needs to be in place for the gallery channel to operate independently. It is the handoff checklist — every item here should be complete, owned, and understood by someone on the team before the engagement closes.</p>
+<!-- ══ 9. SR. LEADERSHIP ══════════════════════════════ -->
+<section class="section" id="srleadership">
+  <span class="section-eyebrow">Team</span>
+  <div class="section-title">Sr. Leadership</div>
+  <div class="section-subtitle">How the Sr. FA manages, develops, and holds the Jr. FA accountable.</div>
+  <div class="divider"></div>
 
-    <h2>Must-Complete Before Handoff</h2>
-    <ul class="checklist">
-      <li><div class="check-box">□</div><div><strong>Hiring:</strong> At least one new FA hire in process or placed. Katie has active pipeline.</div></li>
-      <li><div class="check-box">□</div><div><strong>Onboarding:</strong> New hire day-1 materials ready — training program, HubSpot setup, gallery floor orientation.</div></li>
-      <li><div class="check-box">□</div><div><strong>Process:</strong> Event execution checklist (pre/during/post) adopted and running for at least 2 cycles.</div></li>
-      <li><div class="check-box">□</div><div><strong>CRM:</strong> Anisha's FA deal ownership cleanup complete. No orphaned deals in pipeline.</div></li>
-      <li><div class="check-box">□</div><div><strong>Dashboard:</strong> Weekly pipeline health dashboard live and auto-refreshing daily. Someone on team knows how to read it.</div></li>
-      <li><div class="check-box">□</div><div><strong>Real Estate:</strong> NYC lease decision made. At minimum, Scott has visited 693 Fifth and has a direction on 445 Park counter-offer.</div></li>
-      <li><div class="check-box">□</div><div><strong>Expansion:</strong> Beverly Hills and Silicon Valley broker relationships active; Scott aligned on November 2026 target.</div></li>
-      <li><div class="check-box">□</div><div><strong>Weekly rhythm:</strong> Monday / Wednesday / Friday operating cadence established and running without external facilitation.</div></li>
-    </ul>
+  <p>The Sr. FA is the first line of accountability for any new FA hire. This isn't a coaching role that lives in scheduled 1:1s — it's a daily operating rhythm built around six things that get checked every day.</p>
 
-    <h2>Week-by-Week Focus (Days 1–90 Post-Handoff)</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker" style="font-size:9px;">1–30</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Stabilize</div>
-          <div class="timeline-sub">Owner: Sr. FA + Anisha</div>
-          <p style="font-size:13px;">New hire in training. Events running on the checklist. CRM cleanup complete. Dashboard read at weekly review.</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker" style="font-size:9px;">31–60</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Accelerate</div>
-          <div class="timeline-sub">Owner: Sr. FA + new hire</div>
-          <p style="font-size:13px;">New hire hitting Phase 2 targets. Partner event outreach started. NYC lease signed or decision made. BH and SV site visits in progress.</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker" style="font-size:9px;">61–90</div>
-        <div class="timeline-content">
-          <div class="timeline-heading">Build Toward Expansion</div>
-          <div class="timeline-sub">Owner: Scott + gallery ops</div>
-          <p style="font-size:13px;">New hire approaching independent ramp. BH and SV locations committed. NYC second location evaluated. Expansion hiring plan drafted for new markets.</p>
-        </div>
+  <h2>Six Daily Tracking Items</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>What to Track</th><th>Where to Check</th><th>Flag If</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Meetings held vs. target</strong></td><td>Pipeline dashboard / HubSpot activity</td><td>Below ramp-stage target two days in a row</td></tr>
+        <tr><td>2</td><td><strong>Meeting quality ratings logged</strong></td><td>HubSpot deal notes</td><td>Ratings missing or all ratings are 3 or below</td></tr>
+        <tr><td>3</td><td><strong>Same-day CRM logging compliance</strong></td><td>HubSpot activity timestamps</td><td>Any interaction logged more than 24h after it occurred</td></tr>
+        <tr><td>4</td><td><strong>Follow-ups sent on active deals</strong></td><td>HubSpot sequences / activity log</td><td>Active Relationship deals with no touch in 5+ days</td></tr>
+        <tr><td>5</td><td><strong>Pipeline deals advanced</strong></td><td>Pipeline dashboard — stage movement</td><td>Zero stage advances in a week</td></tr>
+        <tr><td>6</td><td><strong>Next steps set per interaction</strong></td><td>HubSpot deal notes / tasks</td><td>Meetings logged with no next step recorded</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Weekly Check-In Structure</h2>
+  <p>The weekly check-in is a working session, not a status report. It should take 20–30 minutes and follow this structure:</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-marker" style="font-size:9px;">5m</div>
+      <div class="timeline-content">
+        <div class="timeline-heading">Numbers First</div>
+        <div class="timeline-sub">No commentary yet — just the data</div>
+        <p style="font-size:13px;">FA walks through the six tracking items for the week. Sr. FA listens. No coaching until the picture is complete.</p>
       </div>
     </div>
-
-    <div class="callout" style="margin-top: 40px;">
-      <div class="callout-label">The Standard</div>
-      <p>The gallery has a system it can run. Not because someone is there to explain it — because it's written down, linked, and owned.</p>
+    <div class="timeline-item">
+      <div class="timeline-marker" style="font-size:9px;">10m</div>
+      <div class="timeline-content">
+        <div class="timeline-heading">Pipeline Walk</div>
+        <div class="timeline-sub">Deal by deal on anything stuck or unclear</div>
+        <p style="font-size:13px;">What's the next step on each active deal? Is it realistic? Has it moved? If not, why not — and what changes this week?</p>
+      </div>
     </div>
-  </section>
+    <div class="timeline-item">
+      <div class="timeline-marker" style="font-size:9px;">10m</div>
+      <div class="timeline-content">
+        <div class="timeline-heading">One Thing to Fix</div>
+        <div class="timeline-sub">Coach on the highest-leverage gap</div>
+        <p style="font-size:13px;">Don't try to fix everything. Pick the single behavior or gap most affecting output this week. Make it specific, make it actionable, confirm understanding before ending the call.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-marker" style="font-size:9px;">5m</div>
+      <div class="timeline-content">
+        <div class="timeline-heading">Goals for Next Week</div>
+        <div class="timeline-sub">FA states them, Sr. FA confirms</div>
+        <p style="font-size:13px;">Specific, numeric. Not "I'm going to work on follow-ups." "I'll send follow-up on all 12 active deals by Tuesday and log them same-day."</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Ramp-Stage Weekly Goals</h2>
+  <div class="needs-detail"><div class="needs-detail-icon">◎</div><div class="needs-detail-text"><strong>Needs detail:</strong> Specific weekly meeting and pipeline targets by ramp stage (Day 30 / 60 / 90 / 120 / 180). These should match the ramp targets in the Onboarding section and give the Sr. FA a clear standard to hold.</div></div>
+
+  <div class="callout">
+    <div class="callout-label">What Good Looks Like</div>
+    <p>A new FA at Day 60 who is logging same-day, hitting 8–10 meetings per week, and leaving every interaction with a next step is on track — even if they haven't closed yet. Activity precedes revenue. Hold the activity standard first.</p>
+  </div>
+</section>
+
+<!-- ══ 10. HIRING ══════════════════════════════════════ -->
+<section class="section" id="hiring">
+  <span class="section-eyebrow">Team</span>
+  <div class="section-title">Hiring</div>
+  <div class="section-subtitle">The profile, the process, and the career path.</div>
+  <div class="divider"></div>
+
+  <h2>The Right Profile</h2>
+  <p>The gallery FA role is not a traditional wealth management position. The model demands a short-cycle, high-activity closer — someone who can work a room, qualify fast, follow up hard, and log everything. A relationship-builder who waits for trust to develop before asking for business is the wrong fit.</p>
+
+  <h3>Must-Haves</h3>
+  <ul>
+    <li>Demonstrated high call/meeting volume in a previous role — can cite a number</li>
+    <li>Comfort closing in a compressed timeline (same week or next week)</li>
+    <li>Genuine comfort in a gallery/art environment — not an expert, but credible on the floor</li>
+    <li>CRM discipline — logs without being reminded</li>
+    <li>Series 65 or ability to obtain quickly</li>
+  </ul>
+
+  <h3>Red Flags</h3>
+  <ul>
+    <li>Previous role was primarily inbound or account management</li>
+    <li>Defines success as "building a book over time"</li>
+    <li>Resistant to activity tracking or structured accountability</li>
+    <li>Can't cite their weekly meeting or call volume from their last role</li>
+  </ul>
+
+  <h2>Hiring Process</h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-marker">1</div><div class="timeline-content"><div class="timeline-heading">Post JD</div><div class="timeline-sub">Owner: Katie — awaiting Scott sign-off</div><p style="font-size:13px;">Private Wealth Advisor JD ready for posting. Confirm sign-off before Katie activates sourcing.</p></div></div>
+    <div class="timeline-item"><div class="timeline-marker">2</div><div class="timeline-content"><div class="timeline-heading">Screen for Activity Profile</div><div class="timeline-sub">Owner: Katie + gallery ops</div><p style="font-size:13px;">First filter: what was their weekly meeting or call volume in their last role? If they can't answer in a number, move on.</p></div></div>
+    <div class="timeline-item"><div class="timeline-marker">3</div><div class="timeline-content"><div class="timeline-heading">Gallery Floor Interview</div><div class="timeline-sub">Owner: Sr. FA + gallery ops</div><p style="font-size:13px;">Walk the candidate through the gallery. Can they hold a conversation about the art? Are they comfortable? Do they ask good questions about the model?</p></div></div>
+    <div class="timeline-item"><div class="timeline-marker">4</div><div class="timeline-content"><div class="timeline-heading">Role Play / Call Assessment</div><div class="timeline-sub">Owner: Sr. FA</div><p style="font-size:13px;">Simulated follow-up call. Are they coachable? Do they listen? Can they handle a soft objection without folding?</p></div></div>
+    <div class="timeline-item"><div class="timeline-marker">5</div><div class="timeline-content"><div class="timeline-heading">Offer &amp; Onboard</div><div class="timeline-sub">Owner: Scott (comp) + Katie (paperwork)</div><p style="font-size:13px;">Comp and offer route to Scott. Once signed, onboarding begins Day 1.</p></div></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Christaan — Candidate in Process</div>
+    <p>Still evaluating fit against the gallery profile. Key question: short-cycle closer vs. traditional relationship builder. Run the role play assessment before advancing.</p>
+  </div>
+
+  <h2>SDR Model</h2>
+  <p>The junior FA JD is under revision toward an SDR model — sourcing, qualifying, and booking meetings for Sr. FAs rather than carrying their own book. Faster hiring, lower comp, cleaner ramp curve. Final decision routes to Scott.</p>
+
+  <h2>Career Progression</h2>
+  <div class="needs-detail"><div class="needs-detail-icon">◎</div><div class="needs-detail-text"><strong>Needs link:</strong> Career progression document to be linked here — covers role levels, advancement criteria, and public-facing comp bands.</div></div>
+
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">📋</span>
+    <div class="link-text"><span class="link-title">Career Progression &amp; Role Levels</span><span class="link-desc">Advancement criteria and comp bands. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">📄</span>
+    <div class="link-text"><span class="link-title">Private Wealth Advisor JD</span><span class="link-desc">Awaiting final version. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
+</section>
+
+<!-- ══ 11. ONBOARDING & RAMP ══════════════════════════ -->
+<section class="section" id="onboarding">
+  <span class="section-eyebrow">Team</span>
+  <div class="section-title">Onboarding &amp; Ramp</div>
+  <div class="section-subtitle">How a new advisor goes from hire to independent in 6 months.</div>
+  <div class="divider"></div>
+
+  <div class="phase-grid">
+    <div class="phase-card">
+      <div class="phase-num">01</div>
+      <div class="phase-title">Hiring &amp; Orientation</div>
+      <div class="phase-duration">Days 1–60</div>
+      <ul>
+        <li>Licensing completion</li>
+        <li>Platform and product training</li>
+        <li>HubSpot setup and CRM basics</li>
+        <li>Gallery floor orientation</li>
+        <li>Shadow Sr. FA at events</li>
+        <li>Hyperbound AI call training begins</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">02</div>
+      <div class="phase-title">Phone &amp; AI Training</div>
+      <div class="phase-duration">Days 61–120</div>
+      <ul>
+        <li>Hyperbound AI call reps daily</li>
+        <li>Live call review with Sr. FA</li>
+        <li>First solo gallery appearances</li>
+        <li>Begin building own pipeline</li>
+        <li>Hit 50% of meeting volume target</li>
+        <li>Weekly pipeline reviews start</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">03</div>
+      <div class="phase-title">Gallery Training</div>
+      <div class="phase-duration">Days 121–180</div>
+      <ul>
+        <li>Full floor ownership at events</li>
+        <li>Independent meeting scheduling</li>
+        <li>Hit 80–100% of meeting target</li>
+        <li>First independent closes</li>
+        <li>90-day review with Scott</li>
+        <li>Transition to steady-state</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Ramp Targets</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th>Day 30</th><th>Day 60</th><th>Day 90</th><th>Day 120</th><th>Day 180</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Meetings / Week</strong></td><td>Shadow only</td><td>5–8</td><td>10–15</td><td>15–20</td><td>25–30</td></tr>
+        <tr><td><strong>Pipeline Deals</strong></td><td>0</td><td>10–20</td><td>25–40</td><td>40–60</td><td>60+</td></tr>
+        <tr><td><strong>First Close</strong></td><td>—</td><td>—</td><td>Target</td><td>Expected</td><td>Consistent</td></tr>
+        <tr><td><strong>CRM Logging</strong></td><td>Same-day</td><td>Same-day</td><td>Same-day</td><td>Same-day</td><td>Same-day</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Non-Negotiable</div>
+    <p>CRM logging is same-day, every interaction, no exceptions. If it isn't logged, it didn't happen.</p>
+  </div>
+
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">📋</span>
+    <div class="link-text"><span class="link-title">Sr. FA 6-Month Training Program</span><span class="link-desc">Full 3-phase program document. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">🤖</span>
+    <div class="link-text"><span class="link-title">Hyperbound AI Call Training</span><span class="link-desc">Platform access and training scenarios. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
+</section>
+
+<!-- ══ 12. PARTNER EVENTS ══════════════════════════════ -->
+<section class="section" id="partners">
+  <span class="section-eyebrow">Growth</span>
+  <div class="section-title">Partner Events</div>
+  <div class="section-subtitle">Co-branded events to extend reach into HNW networks.</div>
+  <div class="divider"></div>
+
+  <p>The Gallery Partner Events Program creates co-branded event opportunities with organizations that already serve Masterworks' target prospect profile.</p>
+
+  <h2>Eligible Partner Categories</h2>
+  <div class="card-grid">
+    <div class="card"><div class="card-label">Finance</div><div class="card-value" style="font-size:16px;">Wealth Managers &amp; RIAs</div></div>
+    <div class="card"><div class="card-label">Finance</div><div class="card-value" style="font-size:16px;">Family Offices</div></div>
+    <div class="card"><div class="card-label">Finance</div><div class="card-value" style="font-size:16px;">PE / VC Firms</div></div>
+    <div class="card"><div class="card-label">Professional</div><div class="card-value" style="font-size:16px;">T&amp;E Attorneys</div></div>
+    <div class="card"><div class="card-label">Professional</div><div class="card-value" style="font-size:16px;">CPA Firms</div></div>
+    <div class="card"><div class="card-label">Real Estate</div><div class="card-value" style="font-size:16px;">Luxury Residential Brokers</div></div>
+    <div class="card"><div class="card-label">Lifestyle</div><div class="card-value" style="font-size:16px;">Private Members Clubs</div></div>
+    <div class="card"><div class="card-label">Lifestyle</div><div class="card-value" style="font-size:16px;">Fine Wine / Spirits</div></div>
+    <div class="card"><div class="card-label">Lifestyle</div><div class="card-value" style="font-size:16px;">Private Aviation</div></div>
+    <div class="card"><div class="card-label">Lifestyle</div><div class="card-value" style="font-size:16px;">Luxury Auto</div></div>
+    <div class="card"><div class="card-label">Network</div><div class="card-value" style="font-size:16px;">Sports Teams / Agencies</div></div>
+    <div class="card"><div class="card-label">Network</div><div class="card-value" style="font-size:16px;">Tech Exec Networks</div></div>
+    <div class="card"><div class="card-label">Network</div><div class="card-value" style="font-size:16px;">Business School Alumni</div></div>
+  </div>
+
+  <h3>Excluded</h3>
+  <ul><li>Auction houses</li><li>Museum and cultural boards</li></ul>
+
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">🤝</span>
+    <div class="link-text"><span class="link-title">Gallery Partner Events Program — Full Document</span><span class="link-desc">Program overview, outreach templates, event formats. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
+</section>
+
+<!-- ══ 13. REAL ESTATE & EXPANSION ═══════════════════ -->
+<section class="section" id="realestate">
+  <span class="section-eyebrow">Growth</span>
+  <div class="section-title">Real Estate &amp; Expansion</div>
+  <div class="section-subtitle">Active deals, open decisions, and the 3-year growth plan.</div>
+  <div class="divider"></div>
+
+  <div class="callout">
+    <div class="callout-label">Scott's Lane</div>
+    <p>Lease decisions and market selection route to Scott. This section documents current status and open items that need his direction.</p>
+  </div>
+
+  <h2>NYC — Active Deals</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Address</th><th>Space</th><th>Key Details</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>445 Park Avenue</strong></td><td>3,308 SF ground + 900 SF basement<br>50 ft frontage, 15 ft ceilings</td><td>Turnkey buildout. 74 family offices in building incl. Leon Black. Counter-offer: $42K+1.5% vs. $40K+3% escalation, 10-year term.</td><td><span class="badge badge-gold">Awaiting Scott</span></td></tr>
+        <tr><td><strong>693 Fifth Avenue</strong></td><td>10th floor: 4,812 SF @ $85/RSF<br>Penthouse: 5-yr sublease</td><td>Two blocks from 445 Park. Cheaper than 445 on both options. Carpenters Workshop Gallery (UHNW clientele) is PH tenant. Landlord prefers Masterworks.</td><td><span class="badge badge-gold">Scott to visit</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Expansion Markets — Nov 2026</h2>
+  <div class="card-grid">
+    <div class="card"><div class="card-label">Market</div><div class="card-value" style="font-size:20px;">Beverly Hills</div><div class="card-desc">Broker: Figure 8 Commercial</div></div>
+    <div class="card"><div class="card-label">Market</div><div class="card-value" style="font-size:20px;">Silicon Valley</div><div class="card-desc">Menlo Park / Palo Alto. Broker: Blatteis Realty</div></div>
+    <div class="card"><div class="card-label">Market</div><div class="card-value" style="font-size:20px;">NYC (2nd)</div><div class="card-desc">Added to expansion plan. Broker: Glanzrock / Cindy Farkas</div></div>
+  </div>
+
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">🗺️</span>
+    <div class="link-text"><span class="link-title">3-Year Expansion Travel Model</span><span class="link-desc">1 → 7 locations HTML tool. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
+  <a class="link-block" href="#" onclick="return false;">
+    <span class="link-icon">🏢</span>
+    <div class="link-text"><span class="link-title">NYC Master Listings CSV</span><span class="link-desc">12 spaces across 6 buildings evaluated. Link to be added.</span></div>
+    <span class="link-arrow">→</span>
+  </a>
+</section>
+
+<!-- ══ 14. 90-DAY CONTINUITY ══════════════════════════ -->
+<section class="section" id="continuity">
+  <span class="section-eyebrow">Growth</span>
+  <div class="section-title">90-Day Continuity Plan</div>
+  <div class="section-subtitle">What the team runs confidently without outside help.</div>
+  <div class="divider"></div>
+
+  <p>Every item here should be complete, owned, and understood by someone on the team before the engagement closes.</p>
+
+  <h2>Must-Complete Before Handoff</h2>
+  <ul class="checklist">
+    <li><div class="check-box">□</div><div><strong>Hiring:</strong> At least one new FA hire in process or placed. Katie has active pipeline.</div></li>
+    <li><div class="check-box">□</div><div><strong>Onboarding:</strong> New hire Day 1 materials ready — training program, HubSpot setup, gallery floor orientation.</div></li>
+    <li><div class="check-box">□</div><div><strong>Process:</strong> Event execution checklist adopted and running for at least 2 cycles.</div></li>
+    <li><div class="check-box">□</div><div><strong>CRM:</strong> Anisha's FA deal ownership cleanup complete. No orphaned deals in pipeline.</div></li>
+    <li><div class="check-box">□</div><div><strong>Dashboard:</strong> Weekly pipeline health dashboard live and auto-refreshing. Someone on the team knows how to read it.</div></li>
+    <li><div class="check-box">□</div><div><strong>Real Estate:</strong> NYC lease decision made. Scott has visited 693 Fifth and has direction on 445 Park counter.</div></li>
+    <li><div class="check-box">□</div><div><strong>Expansion:</strong> BH and SV broker relationships active. Scott aligned on November 2026 target.</div></li>
+    <li><div class="check-box">□</div><div><strong>Weekly rhythm:</strong> Mon/Wed/Fri cadence established and running without external facilitation.</div></li>
+  </ul>
+
+  <h2>Days 1–90 Post-Handoff</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-marker" style="font-size:9px;">1–30</div>
+      <div class="timeline-content">
+        <div class="timeline-heading">Stabilize</div>
+        <div class="timeline-sub">Owner: Sr. FA + Anisha</div>
+        <p style="font-size:13px;">New hire in training. Events running on the checklist. CRM cleanup complete. Dashboard read at weekly review.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-marker" style="font-size:9px;">31–60</div>
+      <div class="timeline-content">
+        <div class="timeline-heading">Accelerate</div>
+        <div class="timeline-sub">Owner: Sr. FA + new hire</div>
+        <p style="font-size:13px;">New hire hitting Phase 2 targets. Partner event outreach started. NYC lease signed. BH and SV site visits in progress.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-marker" style="font-size:9px;">61–90</div>
+      <div class="timeline-content">
+        <div class="timeline-heading">Build Toward Expansion</div>
+        <div class="timeline-sub">Owner: Scott + gallery ops</div>
+        <p style="font-size:13px;">New hire approaching independent ramp. BH and SV locations committed. Expansion hiring plan drafted for new markets.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:40px;">
+    <div class="callout-label">The Standard</div>
+    <p>The gallery has a system it can run. Not because someone is there to explain it — because it's written down, linked, and owned.</p>
+  </div>
+</section>
 
 </main>
 
 <script>
-  // ── Active nav tracking on scroll ──────────────────
   const sections = document.querySelectorAll('.section');
   const navLinks = document.querySelectorAll('#sidebar nav a');
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1546,8 +1074,7 @@
         });
       }
     });
-  }, { threshold: 0.25 });
-
+  }, { threshold: 0.2 });
   sections.forEach(s => observer.observe(s));
 </script>
 </body>
